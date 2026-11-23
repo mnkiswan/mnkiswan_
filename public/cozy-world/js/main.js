@@ -173,18 +173,29 @@ function swap() {
   const lead = bodies[leader];
   lead.crumbs = [];
   bodies[follower()].crumbs = [];
-  ui.toast(leader === 'swan' ? 'You are Swan now · Mnki walks beside you (Q to swap)' : 'You are Mnki now · Swan walks beside you (Q to swap)');
+  ui.toast(leader === 'swan' ? 'You are Swan now · hold Space to fly · Mnki walks beside you (Q to swap)' : 'You are Mnki now · Swan walks (and flies) beside you (Q to swap)');
 }
 
 // ---- movement ----
-const groundOf = (b) => (b.pos.x > 100 && b.pos.y >= 3 ? 4 : 0);
-function warp(b, x, y, z) { b.pos.set(x, y, z); b.vel.set(0, 0, 0); b.lastSafe.copy(b.pos); b.crumbs = []; }
-function step(b, dir, speed, dt, jump) {
+// the floor a body stands on: the village (0), or the treehouse's ground floor (0) or upstairs (4), set where it arrives
+const groundOf = (b) => b.floor ?? 0;
+/** How high Swan may fly above her floor: under the treehouse ceiling inside, above the village treetops outside. */
+const ceilingOf = (b) => (b.pos.x > 100 ? 2.2 : 9);
+function warp(b, x, y, z) {
+  b.pos.set(x, y, z); b.vel.set(0, 0, 0); b.lastSafe.copy(b.pos); b.crumbs = [];
+  b.floor = x > 100 && y >= 3 ? 4 : 0;
+}
+/** One frame of a body on the keys. Swan flies: holding Space lifts her with beating wings, letting go glides her down. */
+function step(b, dir, speed, dt, jump, fly = false, holding = false) {
   const ax = dir.x * speed; const az = dir.z * speed;
   b.vel.x = moveToward(b.vel.x, ax, dt * 15);
   b.vel.z = moveToward(b.vel.z, az, dt * 15);
   const ground = groundOf(b);
-  if (b.pos.y > ground + 0.001 || b.vel.y > 0) b.vel.y -= 18 * dt;
+  if (fly && holding) {
+    b.vel.y = moveToward(b.vel.y, b.pos.y < ground + ceilingOf(b) ? 4.2 : 0, dt * 24);
+  } else if (fly && b.pos.y > ground + 0.001) {
+    b.vel.y = Math.max(b.vel.y - 7 * dt, -2.4);              // a slow glide down
+  } else if (b.pos.y > ground + 0.001 || b.vel.y > 0) b.vel.y -= 18 * dt;
   else {
     b.vel.y = 0;
     if (jump) b.vel.y = 6.4;
@@ -193,8 +204,9 @@ function step(b, dir, speed, dt, jump) {
   let x = b.pos.x + b.vel.x * dt; let z = b.pos.z + b.vel.z * dt;
   [x, z] = S.resolve(x, z, 0.29, b.pos.y, 1.65);
   b.pos.x = x; b.pos.z = z;
-  b.pos.y = Math.max(ground, b.pos.y + b.vel.y * dt);
+  b.pos.y = Math.min(ground + ceilingOf(b) + 0.2, Math.max(ground, b.pos.y + b.vel.y * dt));
   if (b.pos.y <= ground) b.vel.y = Math.min(0, b.vel.y);
+  b.flying = fly && b.pos.y > ground + 0.12;
   if (b.pos.y < -8 || (Math.hypot(b.pos.x, b.pos.z - 8) > 65 && b.pos.x < 100)) {
     if (b.lastSafe.y > -1) b.pos.copy(b.lastSafe); else b.pos.set(0, 0.1, 4);
     b.vel.set(0, 0, 0);
@@ -214,11 +226,13 @@ function updateLeader(dt) {
   ix /= len; iz /= len;
   const cs = Math.cos(game.yaw); const sn = Math.sin(game.yaw);
   const dir = new THREE.Vector3(ix * cs + iz * sn, 0, -ix * sn + iz * cs);
-  step(b, dir, keys.has('run') ? 6.5 : 4.4, dt, jumpQueued && !game.frozen);
+  const swan = leader === 'swan';
+  const holding = swan && keys.has('jump') && !game.frozen;
+  step(b, dir, b.flying ? 6.2 : keys.has('run') ? 6.5 : 4.4, dt, jumpQueued && !game.frozen && !swan, swan, holding);
   jumpQueued = false;
   if (dir.lengthSq() > 0.01) ch.root.rotation.y = angleLerp(ch.root.rotation.y, Math.atan2(dir.x, dir.z), Math.min(1, dt * 12));
   ch.root.position.copy(b.pos);
-  ch.animate(dt, Math.hypot(b.vel.x, b.vel.z), state.settings.reduced_motion);
+  ch.animate(dt, Math.hypot(b.vel.x, b.vel.z), state.settings.reduced_motion, Boolean(b.flying));
 }
 
 // the one beside you follows the exact walked route (breadcrumbs) rather than cutting through props
@@ -234,13 +248,28 @@ function updateFollower(dt) {
     while (b.crumbs.length > 1 && b.pos.distanceTo(b.crumbs[0]) < 0.7) b.crumbs.shift();
     target = b.crumbs[0];
   } else while (b.crumbs.length > 4) b.crumbs.shift();
+  // Swan flies to catch up when she has fallen behind; Mnki keeps to the ground (he can only jump)
+  const swanHere = follower() === 'swan';
+  const leadUp = lead.pos.y > groundOf(lead) + 0.6;
+  b.floor = groundOf(lead);
+  // once up she keeps flying until she is beside him (no hovering on the edge of the catch-up distance)
+  const airborne = swanHere && !waiting && (dist > 5 || leadUp || (b.flying && dist > 2.4));
+  if (airborne) {
+    if (dist > 2.15) target = lead.pos;                          // straight over the props, no breadcrumbs needed
+    b.crumbs = [lead.pos.clone()];                                // the old trail is behind her now
+  }
   const d = new THREE.Vector3(target.x - b.pos.x, 0, target.z - b.pos.z);
-  const speed = dist > 7 ? 6.7 : 4.6;
+  const speed = airborne ? Math.min(9, 5 + dist * 0.25) : dist > 7 ? 6.7 : 4.6;
   const dl = d.length();
   b.vel.x = moveToward(b.vel.x, dl > 0.2 ? (d.x / dl) * speed : 0, dt * 14);
   b.vel.z = moveToward(b.vel.z, dl > 0.2 ? (d.z / dl) * speed : 0, dt * 14);
-  // the follower climbs the stairs and drops with the leader's floor
-  if (Math.abs(b.pos.y - lead.pos.y) > 1.5 && lead.vel.y === 0) b.pos.y = lead.pos.y;
+  // height: Swan rises to fly (beside Swan aloft, or a little over the path to catch up) and lands when she is near;
+  // Mnki keeps to the leader's floor (the stairs included)
+  const floor = groundOf(b);
+  const wantY = airborne ? (leadUp ? lead.pos.y + 0.2 : floor + 1.4) : floor;
+  b.pos.y = moveToward(b.pos.y, Math.min(wantY, floor + ceilingOf(b)), dt * (airborne ? 3.2 : 2.4));
+  if (!swanHere) b.pos.y = floor;
+  b.flying = swanHere && b.pos.y > floor + 0.12;
   let x = b.pos.x + b.vel.x * dt; let z = b.pos.z + b.vel.z * dt;
   [x, z] = S.resolve(x, z, 0.25, b.pos.y, 1.6);
   b.pos.x = x; b.pos.z = z;
@@ -248,7 +277,7 @@ function updateFollower(dt) {
   if (walking > 0.2) ch.root.rotation.y = angleLerp(ch.root.rotation.y, Math.atan2(b.vel.x, b.vel.z), Math.min(1, dt * 8));
   else if (waiting) ch.root.rotation.y = angleLerp(ch.root.rotation.y, Math.atan2(lead.pos.x - b.pos.x, lead.pos.z - b.pos.z), Math.min(1, dt * 2));
   ch.root.position.copy(b.pos);
-  ch.animate(dt, walking, state.settings.reduced_motion);
+  ch.animate(dt, walking, state.settings.reduced_motion, Boolean(b.flying));
   b.stuck = b.pos.distanceTo(b.prev) < 0.01 && dist > 4 && !waiting ? b.stuck + dt : 0;
   if (b.stuck > 2 && b.crumbs.length > 1) { b.crumbs.shift(); b.stuck = 0; }
   // recover only far behind the view: no visible pop into the camera foreground

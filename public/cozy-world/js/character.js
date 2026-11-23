@@ -153,23 +153,34 @@ export function createCharacter(kind = 'mnki') {
       }
     }
   }
-  let phase = 0;
+  let phase = 0; let flapPhase = 0; let fly = 0;
   const ch = {
     root, body, head, arms, legs, wings, tail, kind, reaction: 0,
-    /** One frame of the walk cycle at ground speed `speed` (m/s). */
-    animate(dt, speed, reduced = false) {
+    /** One frame of the walk cycle at ground speed `speed` (m/s); `flying` (Swan): the wings open and beat, the legs
+     *  trail and the body leans into the flight. */
+    animate(dt, speed, reduced = false, flying = false) {
       phase += dt * (3 + speed * 2.2);
       ch.reaction = Math.max(0, ch.reaction - dt);
-      const k = Math.min(speed / 4, 1);
+      fly += ((flying ? 1 : 0) - fly) * Math.min(1, dt * 6);
+      const k = Math.min(speed / 4, 1) * (1 - fly);
       body.position.y = Math.abs(Math.sin(phase)) * 0.045 * k * (reduced ? 0 : 1);
+      body.rotation.x = fly * 0.35 * Math.min(1, speed / 3 + 0.3);
       head.rotation.z = Math.sin(phase * 0.32) * (reduced ? 0 : 0.025);
       for (let i = 0; i < 2; i++) {
-        legs[i].rotation.x = Math.sin(phase + i * Math.PI) * 0.55 * k;
+        legs[i].rotation.x = Math.sin(phase + i * Math.PI) * 0.55 * k + fly * (0.45 + i * 0.15);
         arms[i].rotation.x = Math.sin(phase + (i + 1) * Math.PI) * 0.4 * k;
-        arms[i].rotation.z = (i === 0 ? 1 : -1) * (0.12 + Math.max(ch.reaction, 0) * 0.65);
+        arms[i].rotation.z = (i === 0 ? 1 : -1) * (0.12 + Math.max(ch.reaction, 0) * 0.65 + fly * 0.5);
       }
       if (tail) tail.rotation.y = Math.sin(phase * 0.35) * 0.12;
-      wings.forEach((w, i) => { w.rotation.z = Math.sin(phase * 0.4) * 0.08 * (i === 0 ? 1 : -1); });
+      // the wings: a gentle sway on foot; open, larger and beating in flight
+      flapPhase += dt * (2 + fly * 9);
+      wings.forEach((w, i) => {
+        const side = i === 0 ? 1 : -1;
+        const beat = Math.sin(flapPhase) * (0.08 + fly * 0.75);
+        w.rotation.z = side * (beat - fly * 0.25);
+        w.rotation.y = side * fly * 0.35;
+        w.scale.setScalar(1 + fly * 0.7);
+      });
     },
   };
   return ch;

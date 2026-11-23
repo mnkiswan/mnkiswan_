@@ -338,7 +338,7 @@ export function createUI(game) {
     body(row(h('span.setting', 'Text size'), btn('Standard', () => setText(1)), btn('Large', () => setText(1.15))));
     body(h('div.section', 'CONTROLS'),
       h('table.keys', ...[['Move', 'W A S D / arrow keys'], ['Look', 'Mouse (click the world to look around)'], ['Interact · reel after a bite', 'E'],
-        ['Jump / run', 'Space / Shift'], ['Camera distance', 'Mouse wheel'], ['Select seed', '1–5 (rice, carrot, tomato, greens, bloom)'],
+        ['Jump / run', 'Space / Shift'], ['Fly (as Swan)', 'Hold Space, let go to glide'], ['Camera distance', 'Mouse wheel'], ['Select seed', '1–5 (rice, carrot, tomato, greens, bloom)'],
         ['Swap Mnki and Swan', 'Q'], ['Bag / journal / map', 'I or Tab / J / M'], ['Pause or close menu', 'Esc'],
         ['Save / hide HUD', 'F5 or Ctrl+S / F2']]
         .map(([a, k]) => h('tr', h('td', a), h('td', h('kbd', k))))),
