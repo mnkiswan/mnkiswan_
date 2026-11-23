@@ -13,8 +13,8 @@ This is MNKISWAN’s adaptation of [Harness Hollow by Krasimir Kralev](https://g
 ## Play on GitHub Pages
 
 The whole game also runs as a static site. `tools/build-pages.mjs` builds it into `dist/`, and the
-**Deploy to GitHub Pages** workflow (`.github/workflows/pages.yml`) publishes it on every push to `main`. In the
-repository settings, set **Pages > Build and deployment > Source** to **GitHub Actions** once.
+**Deploy to GitHub Pages** workflow (`.github/workflows/pages.yml`) builds it on every push to `main` and puts the
+built site on the `mnkiswan-tree-village` branch, which GitHub Pages serves (Settings > Pages: deploy from that branch, root).
 
 On a static host there is no farm server, so `pages/local-server.js` runs the same server code (engine, sessions,
 scheduler and the shared rules) inside the page and talks to the game through an in-page socket. Each browser keeps

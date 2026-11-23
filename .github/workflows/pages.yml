@@ -1,6 +1,8 @@
 # Publishes MNKISWAN Tree Village to GitHub Pages: the whole game as a static site, the farm server running inside the
 # page (pages/local-server.js), each player's village saved in their own browser.
-# One-time setup: repository Settings > Pages > Build and deployment > Source: "GitHub Actions".
+#
+# The repository's Pages setting is "Deploy from a branch": PAGES_BRANCH, folder / (root). This workflow builds the
+# site from main and replaces that branch with the built files (the game's source stays on main).
 name: Deploy to GitHub Pages
 
 on:
@@ -9,16 +11,17 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
 
 concurrency:
   group: pages
   cancel-in-progress: true
 
+env:
+  PAGES_BRANCH: mnkiswan-tree-village
+
 jobs:
-  build:
+  publish:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -29,24 +32,14 @@ jobs:
       - run: npm ci --no-audit --no-fund
         env:
           PUPPETEER_SKIP_DOWNLOAD: '1'
-      - id: pages
-        uses: actions/configure-pages@v5
-        with:
-          enablement: true
       - name: Build the static site
         run: node tools/build-pages.mjs --out dist
-        env:
-          PAGES_BASE: ${{ steps.pages.outputs.base_url }}
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: dist
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Publish the site to the Pages branch
+        working-directory: dist
+        run: |
+          git init -q -b "$PAGES_BRANCH"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -q -m "Site built from ${GITHUB_SHA}"
+          git push -f "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git" "HEAD:$PAGES_BRANCH"
