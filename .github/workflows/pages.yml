@@ -31,6 +31,8 @@ jobs:
           PUPPETEER_SKIP_DOWNLOAD: '1'
       - id: pages
         uses: actions/configure-pages@v5
+        with:
+          enablement: true
       - name: Build the static site
         run: node tools/build-pages.mjs --out dist
         env:
