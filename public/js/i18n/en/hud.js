@@ -23,6 +23,10 @@ export default {
   'hud.farmer.labelOn': '{name}, {title}, online. Go to them',
   'hud.farmer.labelAway': '{name}, {title}, away. Go to them',
   'hud.farmer.tipMe': '{name}: {title}. Click to find yourself (Space)',
+  // Mnki and Swan together: the chip of the one walking beside a solo farmer
+  'hud.pair.title': 'With you · tap to swap',
+  'hud.pair.label': '{name} walks with you. Press to play {name} ({me} walks with you then)',
+  'hud.pair.tip': 'Play as {name}',
   'hud.farmer.tipOn': '{name}: {title}. Click to go to them (F)',
   'hud.farmer.tipAway': '{name}: {title}. Away. The farm keeps growing.',
   'hud.farmer.awayNow': '{name} is away right now.',

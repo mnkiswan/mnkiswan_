@@ -4,7 +4,10 @@ Welcome to **MNKISWAN Tree Village**. Swan has a picnic cloth. Mnki has two spoo
 
 **▶ Play it in your browser:** https://mnkiswan.github.io/mnkiswan_/ (no install, no server; your village is saved in your browser).
 
-Open **Your look** to try Mnki’s red farm outfit or Swan’s cream outfit and flower crown. Save a look to wear it on the farm.
+**Mnki and Swan are always together**, as in MNKISWAN Cozy World. Farmer 1 is Mnki (red hoodie, golden headband, curled
+tail) and farmer 2 is Swan (white hoodie, pink skirt, swan hood and little wings). Playing alone, the other one walks
+beside you everywhere; press their chip at the top of the screen to swap and play as them instead. When your partner
+joins, each of you plays your own; when they leave, theirs walks beside you again. **Your look** still changes any detail.
 
 **Picnic Pairs** is a memory game you can play while your crops grow. Open the Farm book, choose Picnic Pairs and turn over two cards at a time to find all six foods. Each player has their own board. Closing the panel ends the round.
 

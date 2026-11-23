@@ -9,6 +9,7 @@ import { h, svgIcon, createKit, fill } from './kit.js';
 import { actFor } from './w4-rules.js';
 import { LOOKS, lookOf, lookPatch } from './w4-model.js';
 import { t } from '../../i18n/index.js';
+import { MNKI_LOOK, SWAN_LOOK } from '../../game/mnkiswan-pair.js';
 
 const NS = 'http://www.w3.org/2000/svg';
 const HEX = /^#[0-9a-f]{6}$/i;
@@ -237,8 +238,9 @@ export const avatarPanel = {
       } } }, svgIcon('star', 18), t('home.avatar.dice'));
 
     const outfits = [
-      { label: 'home.avatar.mnki', body: 'farmer_a', hair: 'short', hairColor: '#4A3022', hat: 'cap', top: '#B23A2E', bottom: '#3A3A40' },
-      { label: 'home.avatar.swan', body: 'farmer_b', hair: 'long', hairColor: '#7A4A2A', hat: 'flower_crown', top: '#F2E6CC', bottom: '#8DAA7A' },
+      // the canon Mnki and Swan (content's default looks: headband and tail, swan hood and wings)
+      { label: 'home.avatar.mnki', ...MNKI_LOOK },
+      { label: 'home.avatar.swan', ...SWAN_LOOK },
     ];
     const duo = h('div.av-acts-row', ...outfits.map(({ label, ...outfit }) => h('button.btn.btn--paper.pn-sm', {
       type: 'button', on: { click() {

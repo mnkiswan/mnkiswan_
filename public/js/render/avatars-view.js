@@ -58,7 +58,8 @@ import { RIDERS, PET_PICKS, hash32 } from './animals-view.js';
 import { WANT } from './renderer.js';
 import { box, cyl, cone, ball, merge } from './world-kit.js';
 import { FISHING, PETS as PETS_CONTENT } from '../../../shared/content/index.js';
-import { lookOf, accessoryGeometry, addPartLook, applyLook, headFrame, headShape, AV_PART } from './avatar-looks.js';
+import { lookOf, accessoryGeometry, addPartLook, applyLook, headFrame, headShape, AV_PART, bodyExtras } from './avatar-looks.js';
+import { lookOfSlot, pairOf, otherOf, PAIR_LOOK, PAIR_NAME } from '../game/mnkiswan-pair.js';
 import { dockSeats } from './land-features.js';
 import * as grid from '../../../shared/rules/grid.js';
 
@@ -421,8 +422,8 @@ export function createAvatarsView(layers, overlay, toScreen) {
   let clock = 0;
   const pings = [];
 
-  function bodyFor(pid, p) {
-    const b = p && p.avatar && p.avatar.body;
+  function bodyFor(pid, p, override = null) {
+    const b = (override || lookOfSlot(p, pid)).body;
     if (b === 'farmer_a' || b === 'farmer_b') return b;
     return pid === 'p2' ? 'farmer_b' : 'farmer_a';
   }
@@ -535,7 +536,10 @@ export function createAvatarsView(layers, overlay, toScreen) {
       if (skinMesh && skinMesh.computeBoundingBox) { skinMesh.computeBoundingBox(); top = skinMesh.boundingBox.clone().applyMatrix4(skinMesh.matrixWorld).max.y - drop; }
       const hips = bones.Hips ? bones.Hips.getWorldPosition(new THREE.Vector3()).y - drop : 0.95;
       const headY = bones.Head ? bones.Head.getWorldPosition(new THREE.Vector3()).y - drop : 1.5;
-      a.rig = { object: c.object, mixer, actions, hand, bones, hipsY: hips, drop, topY: Math.max(1.4, Math.min(2.4, top)), headTop: Math.max(0.2, Math.min(0.8, top - headY)), base: null, overlay: null, toolObj: null };
+      // MNKISWAN canon: the bind-pose frames of the hips and torso (the tail and wings hang there, dressLook)
+      const rest = {};
+      for (const n of ['Hips', 'Torso']) if (bones[n]) rest[n] = bones[n].matrixWorld.clone();
+      a.rig = { rest, object: c.object, mixer, actions, hand, bones, hipsY: hips, drop, topY: Math.max(1.4, Math.min(2.4, top)), headTop: Math.max(0.2, Math.min(0.8, top - headY)), base: null, overlay: null, toolObj: null };
       // wave 4 (owner wish 9): the look patch on the farmer's own material, and the head frame its hair and hats hang in
       if (skinMesh && skinMesh.geometry.getAttribute('_part')) {
         a.rig.parts = addPartLook(skinMesh.material);
@@ -565,7 +569,8 @@ export function createAvatarsView(layers, overlay, toScreen) {
   function dressLook(a) {
     const r = a.rig;
     if (!r || !r.parts) return;
-    const look = lookOf(a.player, r.own);
+    // a player who never chose a look is their slot's Mnki or Swan; the companion wears the other one of the pair
+    const look = lookOf({ avatar: a.lookOverride || lookOfSlot(a.player, a.pid) }, r.own);
     const sig = JSON.stringify(look);
     if (sig === r.lookSig) return;
     r.lookSig = sig;
@@ -581,6 +586,23 @@ export function createAvatarsView(layers, overlay, toScreen) {
       m.frustumCulled = false;
       r.head.add(m);
       r.accessory = m;
+    }
+    // Mnki's tail on the hips, Swan's wings on the torso (built in the bone's bind-pose frame, axes of the farmer)
+    for (const x of r.extras || []) { x.removeFromParent(); x.geometry.dispose(); }
+    r.extras = [];
+    const ex = bodyExtras(look);
+    for (const [kind, bone] of [['tail', 'Hips'], ['wings', 'Torso']]) {
+      const g = ex && ex[kind];
+      const b = r.bones[bone]; const restM = r.rest && r.rest[bone];
+      if (!g || !b || !restM) { g?.dispose?.(); continue; }
+      const at = new THREE.Vector3().setFromMatrixPosition(restM);
+      const m = new THREE.Mesh(g, models.material('standard'));
+      m.name = `${kind}-${a.pid}`;
+      m.matrixAutoUpdate = false;
+      m.matrix.copy(restM).invert().multiply(new THREE.Matrix4().makeTranslation(at.x, at.y, at.z));
+      m.frustumCulled = false;
+      b.add(m);
+      r.extras.push(m);
     }
   }
 
@@ -643,6 +665,77 @@ export function createAvatarsView(layers, overlay, toScreen) {
 
   function placeRoot(a, p) {
     a.pose = p;
+  }
+
+  // ---- Mnki and Swan, always together (MNKISWAN Cozy World) -------------------------------------------------------
+  // While no partner plays the other one of the pair, they walk beside me: the partner's own farmer while they are
+  // away, or (a farm with one farmer) the other of Mnki and Swan in their canon look. They follow my trail of
+  // breadcrumbs (so they go round what I went round), stop a step behind me, and come along on a hop. Cosmetic only.
+  const COMPANION = Object.freeze({ gap: 0.6, side: 0.32, crumb: 0.15, hop: 7, walk: 2.2 });  // tiles; tiles/s
+  let companionOn = true;
+  const isCompanion = (a) => companionOn && !a.self && !a.online && Boolean(myPid) && av.has(myPid);
+
+  /** The companion entry for a farm without a second farmer: the other of the pair, named and dressed as them. */
+  function syncCompanion(players) {
+    if (!myPid) return;
+    const other = myPid === 'p2' ? 'p1' : 'p2';
+    const real = players && Object.hasOwn(players, other);
+    const mine = lookOfSlot(players && players[myPid], myPid);
+    const who = otherOf(pairOf(mine));
+    if (real) {
+      const a = av.get(other);
+      if (a && a.pseudo) { a.pseudo = false; a.lookOverride = null; dressLook(a); }
+      return;
+    }
+    const look = PAIR_LOOK[who];
+    const a = ensure(other, who === 'swan' ? '#E8848C' : '#B23A2E', PAIR_NAME[who], bodyFor(other, null, look));
+    a.pseudo = true;
+    a.online = false;
+    a.player = null;
+    a.lookOverride = look;
+    dressLook(a);
+  }
+
+  /** One frame of the companion: walk my trail to a step behind me (tiles). */
+  function followMe(a, dt) {
+    const me = av.get(myPid);
+    if (!me || !me.pose) return;
+    const mx = me.pose.x; const mz = me.pose.z;
+    if (!a.trail) a.trail = [];
+    const last = a.trail[a.trail.length - 1];
+    const jump = last ? Math.hypot(mx - last.x, mz - last.z) : Infinity;
+    const behind = () => {
+      const b = me.facing + Math.PI;
+      return { x: mx + Math.sin(b) * COMPANION.gap + Math.cos(b) * COMPANION.side, z: mz + Math.cos(b) * COMPANION.gap - Math.sin(b) * COMPANION.side };
+    };
+    if (jump > COMPANION.hop || !a.pose) {
+      a.trail = [{ x: mx, z: mz }];
+      placeRoot(a, { ...behind(), f: me.facing, a: 0 });
+      return;
+    }
+    if (jump > COMPANION.crumb) { a.trail.push({ x: mx, z: mz }); if (a.trail.length > 60) a.trail.shift(); }
+    // the goal: the newest breadcrumb at least a gap behind me along the trail, else a step behind and beside me
+    let goal = null;
+    for (let i = a.trail.length - 1; i >= 0; i--) {
+      const c = a.trail[i];
+      if (Math.hypot(c.x - mx, c.z - mz) >= COMPANION.gap) { goal = c; break; }
+    }
+    if (!goal) goal = behind();
+    const dx = goal.x - a.pose.x; const dz = goal.z - a.pose.z; const d = Math.hypot(dx, dz);
+    let f = a.pose.f ?? a.facing;
+    let x = a.pose.x; let z = a.pose.z;
+    if (d > 0.04) {
+      const v = Math.min(COMPANION.walk * 2.5, 0.4 + d * 2.2);       // catches up quickly, slows as it arrives
+      const step = Math.min(d, v * dt);
+      x += (dx / d) * step; z += (dz / d) * step;
+      f = Math.atan2(dx, dz);
+    } else if ((me.speed || 0) < 0.2) f = Math.atan2(mx - x, mz - z);    // standing about: turned toward me
+    // never inside me
+    const ex = x - mx; const ez = z - mz; const e = Math.hypot(ex, ez);
+    if (e < 0.3 && e > 1e-4) { x = mx + (ex / e) * 0.3; z = mz + (ez / e) * 0.3; }
+    // the crumbs they have walked past are dropped
+    while (a.trail.length > 1 && a.trail[0] !== goal && Math.hypot(a.trail[0].x - x, a.trail[0].z - z) < COMPANION.crumb * 2) a.trail.shift();
+    placeRoot(a, { x, z, f, a: 0 });
   }
 
   // -------------------------------------------------------------------------------------------------
@@ -1500,6 +1593,12 @@ export function createAvatarsView(layers, overlay, toScreen) {
     const t = now();
     const gk = goldenK(t);
     for (const a of av.values()) {
+      if (isCompanion(a)) {
+        followMe(a, dt);
+        const me = av.get(myPid);
+        // indoors with me (the farmhouse room draws us), else beside me on the farm
+        a.root.visible = !(me && me.root && !me.root.visible);
+      }
       if (!a.self && a.online) {
         const p = a.buf.at(t);
         if (p) {
@@ -1685,16 +1784,24 @@ export function createAvatarsView(layers, overlay, toScreen) {
         dressLook(a);
         if (!a.pose) placeRoot(a, { ...(START.spawn[pid] || START.spawn.p1), f: 0, a: 0 });
       }
+      syncCompanion(players);
       syncPets(players);
     },
+    /** Mnki and Swan together: the other of the pair walks beside me while no partner plays them (default on). */
+    setCompanion(on) {
+      companionOn = on !== false;
+      for (const a of av.values()) if (!a.self && !a.online) { a.root.visible = isCompanion(a); if (!a.root.visible) a.plate.style.visibility = 'hidden'; }
+    },
+    companionOf() { const a = [...av.values()].find((x) => isCompanion(x)); return a ? { pid: a.pid, name: a.name, pseudo: Boolean(a.pseudo), pose: a.pose } : null; },
     setOnline(pid, online) {
       const a = av.get(pid);
       if (!a) return;
       if (online && !a.online && a.pose && fx) fx.play({ e: 'joined', pid }, new THREE.Vector3(a.pose.x * TILE_M, 0, a.pose.z * TILE_M));
       a.online = online;
-      a.root.visible = online || a.self;
+      a.root.visible = online || a.self || isCompanion(a);
       if (!online) {
-        a.ring.visible = false; a.ghost.hide(); a.plate.style.visibility = 'hidden';
+        a.ring.visible = false; a.ghost.hide(); if (!isCompanion(a)) a.plate.style.visibility = 'hidden';
+        if (!a.self) a.trail = null;
         // a leaver gets off the horse here too, and a stale 'horse' row cannot re-mount them on return (QA2 CL-01)
         if (!a.self) { if (a.riding) setRiding(a, false); a.buf.clear(); }
       }

@@ -27,7 +27,9 @@ import { box, ball, merge, geoPart } from './world-kit.js';
 
 export const AV_PART = Object.freeze({ skin: 1, top: 2, bottom: 3, hair: 4, hat: 5, brows: 6 });
 export const HAIR_STYLES = Object.freeze(['short', 'long', 'ponytail', 'bun', 'curly', 'braid', 'buzz']);
-export const HATS = Object.freeze(['none', 'straw_hat', 'cap', 'beanie', 'sun_bonnet', 'cowboy_hat', 'flower_crown']);
+// monkey_band and swan_hood: Mnki's golden double-spiral headband and Swan's swan hood (MNKISWAN canon, Cozy World)
+export const HATS = Object.freeze(['none', 'straw_hat', 'cap', 'beanie', 'sun_bonnet', 'cowboy_hat', 'flower_crown', 'monkey_band',
+  'swan_hood']);
 
 const HEX = /^#[0-9a-fA-F]{6}$/;
 const id = (v, list) => (typeof v === 'string' && list.includes(v) ? v : null);
@@ -106,8 +108,10 @@ export const HAT_SEAT = Object.freeze({
   sun_bonnet: Object.freeze({ seat: 0.04, tilt: 0.55, gap: 0.26 }),
   cowboy_hat: Object.freeze({ seat: 0.52, tilt: 0.1 }),
   flower_crown: Object.freeze({ seat: 0.62, tilt: 0.16 }),
+  monkey_band: Object.freeze({ seat: 0.42, tilt: 0.3 }),
+  swan_hood: Object.freeze({ seat: 0.0, tilt: 0.5, gap: 0.2 }),
 });
-const COVERS = new Set(['straw_hat', 'cap', 'beanie', 'sun_bonnet', 'cowboy_hat']);
+const COVERS = new Set(['straw_hat', 'cap', 'beanie', 'sun_bonnet', 'cowboy_hat', 'swan_hood']);
 const PAD = 1.06;              // the hat's faces are chords of its curve: this much room keeps every vertex inside
 
 /** A head to fit to without a measured rig (tests, a rig without the part mask): an egg about as big as the farmers'
@@ -258,7 +262,7 @@ function strap(a, b, w, col) {
 function hatParts(hat, sets, shape) {
   const pl = HAT_SEAT[hat];
   if (!pl) return [];
-  const f = rimFit(hat === 'flower_crown' ? overRim(sets, pl, -0.2, 0.2) : overRim(sets, pl, 0));
+  const f = rimFit(hat === 'flower_crown' || hat === 'monkey_band' ? overRim(sets, pl, -0.2, 0.2) : overRim(sets, pl, 0));
   const rr = (f.rx + f.rz) / 2;                         // the rim's mean radius: a brim reaches out in head units
   const round = { sx: 1 / f.rx, sz: 1 / f.rz };         // keeps a ball round under the rim's scale
   const p = [];
@@ -288,6 +292,26 @@ function hatParts(hat, sets, shape) {
     const k = crownOver(f, 0.16, H);
     p.push(tube(k * 0.84, k, H, 14, '#7A4E2E', { dent: 0.22 }), band(k * 0.985, k * 1.04, 0.04, 0.2, 14, '#3A2A1A'),
       brim(k * 0.985, k + 0.95 / rr, '#8A5A35', { th: 0.08, curl: 0.55, dip: 0.12, seg: 20 }));
+  } else if (hat === 'monkey_band') {
+    // Mnki's golden headband: a thin gold band round the hair and the double inward spiral over the brow
+    const gold = '#E9B13A';
+    p.push(band(0.97, 1.05, -0.07, 0.07, 18, gold));
+    for (const sgn of [-1, 1]) {
+      p.push(geoPart(new THREE.TorusGeometry(0.16, 0.045, 5, 14), gold, { x: sgn * 0.17, y: 0.05, z: 1.03, ...round }),
+        geoPart(new THREE.TorusGeometry(0.07, 0.04, 5, 10), '#FFD45A', { x: sgn * 0.17, y: 0.05, z: 1.05, ...round }));
+    }
+  } else if (hat === 'swan_hood') {
+    // Swan's hood: a white swan head over hers, the orange beak on top, two dark eyes and a small gold crown
+    const d = domeOver(f);
+    p.push(geoPart(new THREE.SphereGeometry(1, 16, 7, 0, Math.PI * 2, 0, Math.PI / 2), '#FFFFFF', { sx: d.s * 1.04, sy: d.h * 1.08, sz: d.s * 1.04 }),
+      band(d.s * 0.98, d.s * 1.06, -0.18, 0.06, 16, '#F4F1EC'),
+      geoPart(new THREE.ConeGeometry(0.2, 0.55, 8), '#F28C1E', { y: d.h * 0.88, z: d.s * 0.62, rx: 1.15, sx: 1.3, sz: 0.8 }),
+      ball(0.08, '#2A2420', { x: -d.s * 0.42, y: d.h * 0.62, z: d.s * 0.74 }), ball(0.08, '#2A2420', { x: d.s * 0.42, y: d.h * 0.62, z: d.s * 0.74 }));
+    for (let i = 0; i < 3; i++) {
+      p.push(geoPart(new THREE.ConeGeometry(0.07, 0.24, 5), '#E9B13A', { x: d.s * 0.48 + (i - 1) * 0.1, y: d.h * 0.98, z: -d.s * 0.12, rz: -0.35 }));
+    }
+    p.push(band(0.16, 0.2, 0, 0.08, 10, '#E9B13A'));
+    p[p.length - 1].g.applyMatrix4(new THREE.Matrix4().makeRotationZ(-0.35).setPosition(d.s * 0.48, d.h * 0.88, -d.s * 0.12));
   } else if (hat === 'flower_crown') {
     const cols = ['#FF7A9C', '#FFD21F', '#FFFFFF', '#9C7FD0', '#FF9F43'];
     for (let i = 0; i < 12; i++) {
@@ -437,4 +461,29 @@ export function headShape(mesh, head, frame = headFrame(mesh, head)) {
   }
   if (!out.keep.length) return null;
   return { keep: Float32Array.from(out.keep), hair: Float32Array.from(out.hair), hat: Float32Array.from(out.hat), chin: chin ? [0, chin[1], chin[2]] : DEFAULT_SHAPE.chin };
+}
+
+// ---- MNKISWAN canon on the body (Cozy World): Mnki's long curled monkey tail, Swan's small white feather wings ----
+/**
+ * What hangs on the body for a look: `tail` (in the hips frame: origin at the hips bone at rest, metres, +Y up, +Z the
+ * face) for Mnki's headband, `wings` (the chest frame, the same axes) for Swan's hood; null for any other look. Pure.
+ */
+export function bodyExtras(look) {
+  const hat = look && look.hat;
+  if (hat === 'monkey_band') {
+    const pts = [[0, -0.02, -0.1], [0, -0.16, -0.24], [0, -0.16, -0.42], [0, -0.02, -0.56], [0, 0.18, -0.56], [0, 0.28, -0.44],
+      [0, 0.24, -0.33], [0, 0.15, -0.35]].map(([x, y, z]) => new THREE.Vector3(x, y, z));
+    const tube = new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), 28, 0.038, 6, false);
+    return { tail: merge([geoPart(tube, '#7A4E30'), ball(0.045, '#6A4228', { x: 0, y: 0.15, z: -0.35 })]) };
+  }
+  if (hat === 'swan_hood') {
+    const parts = [];
+    for (const sgn of [-1, 1]) {
+      parts.push(ball(1, '#FFFFFF', { x: sgn * 0.16, y: 0.02, z: -0.17, sx: 0.1, sy: 0.2, sz: 0.035, rz: sgn * -0.55 }),
+        ball(1, '#F4F1EC', { x: sgn * 0.24, y: -0.06, z: -0.19, sx: 0.07, sy: 0.15, sz: 0.03, rz: sgn * -0.9 }),
+        ball(1, '#FFFFFF', { x: sgn * 0.3, y: -0.14, z: -0.2, sx: 0.05, sy: 0.1, sz: 0.025, rz: sgn * -1.2 }));
+    }
+    return { wings: merge(parts) };
+  }
+  return null;
 }

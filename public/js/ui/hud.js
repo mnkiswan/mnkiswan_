@@ -12,6 +12,7 @@ import { barnCap, stockOf, overflowOf } from '../../../shared/rules/economy.js';
 import { h, icon, svgIcon, fmt, fmtShort, rollNumber, playerVars, playerMark, GLYPH_NAMES, touchText, touchPlayer, kv, menuCloseHooks } from './dom.js';
 import { hasIcon } from '../render/icons.js';
 import { portraitSpec, portraitKey, peekPortrait } from '../render/portrait.js';
+import { lookOfSlot, pairOf, otherOf, PAIR_LOOK, PAIR_NAME } from '../game/mnkiswan-pair.js';
 import { plotHurry, treeHurry, fieldHurry, hurryReason, finishField, fieldLabel } from './crop-hurry.js';
 import { probe } from './panels/core.js';
 import { SOFT } from '../../../shared/net/protocol.js';
@@ -345,12 +346,47 @@ export function createHud(S) {
   // (list semantics stay intact); data-slot gives each farmer a shape as well as a colour: farmer 1 a circle,
   // farmer 2 a rounded square, everywhere (GDD §7.5: identity is never colour alone)
   const chips = new Map();
+  let pairLi = null;
+  /** The chip of the one beside me (Mnki or Swan): a press swaps who I play. */
+  function pairChip() {
+    if (pairLi) return pairLi;
+    const btn = h('button.farmer', { type: 'button', on: { click: () => {
+      const mine = lookOfSlot(store.state.players[store.pid], store.pid);
+      const who = otherOf(pairOf(mine));
+      controller.do('setAvatar', { ...PAIR_LOOK[who] });
+    } } }, portraitFace(), h('span.tag', { 'aria-hidden': 'true' }, h('span.who', h('span.nm')), h('span.title')));
+    pairLi = h('li.online.partner.pair', { dataset: { pid: 'pair', slot: 'p2' } }, btn);
+    return pairLi;
+  }
+  function paintPairChip(meP) {
+    if (!pairLi) return;
+    const mine = lookOfSlot(meP, store.pid);
+    const who = otherOf(pairOf(mine));
+    const other = store.pid === 'p2' ? 'p1' : 'p2';
+    const color = who === 'swan' ? '#E8848C' : '#B23A2E';
+    for (const [k, v] of Object.entries(playerVars(color))) pairLi.style.setProperty(k, v);
+    pairLi.dataset.slot = other;
+    const name = PAIR_NAME[who];
+    const btn = pairLi.firstElementChild;
+    btn.setAttribute('aria-label', t('hud.pair.label', { name, me: PAIR_NAME[pairOf(mine)] }));
+    btn.dataset.tip = t('hud.pair.tip', { name });
+    const face = pairLi.querySelector('.face');
+    face.querySelector('.ltr').textContent = initialOf(name);
+    showPortrait(face, portraitSpec(other, { color, avatar: PAIR_LOOK[who] }), view);
+    pairLi.querySelector('.nm').textContent = name;
+    pairLi.querySelector('.title').textContent = t('hud.pair.title');
+  }
   function renderPlayers() {
     const list = $('hud-players');
     const players = store.state.players;
     const pids = Object.keys(players).sort();
-    if (pids.join(',') !== [...list.children].map((li) => li.dataset.pid).join(',')) {
-      list.replaceChildren(...pids.map((pid) => {
+    // Mnki and Swan together (MNKISWAN Cozy World): on a farm with one farmer the other of the pair walks beside them;
+    // their chip shows who that is, and a press swaps the two (the farmer plays the other one, who then follows)
+    const solo = pids.length === 1 && pids[0] === store.pid;
+    const keys = solo ? [...pids, 'pair'] : pids;
+    if (keys.join(',') !== [...list.children].map((li) => li.dataset.pid).join(',')) {
+      list.replaceChildren(...keys.map((pid) => {
+        if (pid === 'pair') return pairChip();
         if (!chips.has(pid)) {
           const go = () => { if (pid !== store.pid) goTo(pid); else if (typeof controller.focusMe === 'function') controller.focusMe(); };
           // the face: the farmer's portrait (render/portrait.js) over their initial, which shows until the picture is
@@ -383,6 +419,7 @@ export function createHud(S) {
       if (nm.textContent !== (p.name || '')) nm.textContent = p.name || '';
       li.querySelector('.title').textContent = on || me ? title : t('shell.slot.away');
     }
+    if (solo) paintPairChip(players[store.pid]);
     if (typeof ResizeObserver !== 'function') fitSoon();         // else the observer below sees the chips change size
   }
   // The chips never run under the treasury pills (a long name on a window under the 1366 px design floor, or a big coin

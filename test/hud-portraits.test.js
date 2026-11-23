@@ -19,7 +19,9 @@ test('portraitSpec: the rig the farm draws (farmer 2 is B, a chosen build wins),
   assert.equal(portraitSpec('p2', { avatar: { body: 'farmer_a' } }).body, 'farmer_a');
   assert.equal(portraitSpec('p1', { color: '#2bb3a3' }).color, '#2BB3A3');
   assert.equal(portraitSpec('p1', { color: 'teal' }).color, '#2BB3A3', 'a bad colour falls back, never throws');
-  assert.equal(portraitSpec('p1', null).avatar, null);
+  // a farmer who never chose a look is drawn as their slot's Mnki or Swan (MNKISWAN Cozy World)
+  assert.equal(portraitSpec('p1', null).avatar.hat, 'monkey_band');
+  assert.equal(portraitSpec('p3', null).avatar, null, 'no canon for an unknown slot');
 });
 
 test('portraitKey: the look, rig and colour only; stable across key order and hex case; never the name or the XP', () => {

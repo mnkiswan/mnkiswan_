@@ -66,7 +66,10 @@ test('wishes 6 + 9: nobody looks different after the update (first dog breed = t
   assert.equal(DEFAULT_BREEDS.dog[0].id, 'shiba', 'the ui\'s fallback list agrees');
   const cat = PETS.kinds.find((k) => k.id === 'cat');
   assert.equal(PET_BREEDS.cat[cat.breeds[0].id], PET.cat.key);
-  assert.equal(AVATAR_LOOKS.defaults.p1.hat, 'straw_hat');
+  // owner 2026-11-23 (MNKISWAN Cozy World): the two farmers are Mnki and Swan by default, so farmer A wears Mnki's
+  // golden headband now (no longer the straw hat) and farmer B Swan's hood
+  assert.equal(AVATAR_LOOKS.defaults.p1.hat, 'monkey_band');
+  assert.equal(AVATAR_LOOKS.defaults.p2.hat, 'swan_hood');
 });
 
 test('wish 12: the rain streak quad keeps its winding (the mirrored quad was culled: only the splashes showed)', async () => {

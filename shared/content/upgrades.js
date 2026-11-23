@@ -97,7 +97,9 @@ export const AVATAR_LOOKS = {
   hair: [look('short', 'Short'), look('long', 'Long'), look('ponytail', 'Ponytail'), look('bun', 'Bun'),
     look('curly', 'Curly'), look('braid', 'Braid'), look('buzz', 'Buzz cut')],
   hats: [look('none', 'No hat'), look('straw_hat', 'Straw hat'), look('cap', 'Farm cap'), look('beanie', 'Beanie'),
-    look('sun_bonnet', 'Sun bonnet'), look('cowboy_hat', 'Cowboy hat'), look('flower_crown', 'Flower crown')],
+    look('sun_bonnet', 'Sun bonnet'), look('cowboy_hat', 'Cowboy hat'), look('flower_crown', 'Flower crown'),
+    // MNKISWAN canon (Cozy World): Mnki's golden headband (with his tail) and Swan's swan hood (with her wings)
+    look('monkey_band', 'Golden headband'), look('swan_hood', 'Swan hood')],
   hairColors: [look('black', 'Black', '#2A2420'), look('dark_brown', 'Dark brown', '#4A3022'),
     look('chestnut', 'Chestnut', '#7A4A2A'), look('auburn', 'Auburn', '#9A3E22'), look('blonde', 'Blonde', '#D9B26A'),
     look('strawberry', 'Strawberry blonde', '#D9875A'), look('silver', 'Silver', '#C9C6C2'),
@@ -108,11 +110,13 @@ export const AVATAR_LOOKS = {
   outfitColors: [look('teal', 'Teal', '#2BB3A3'), look('coral', 'Coral', '#FF7A6B'), look('denim', 'Denim', '#3E6FA8'),
     look('sage', 'Sage', '#8DAA7A'), look('mustard', 'Mustard', '#E0B23A'), look('plum', 'Plum', '#7A4A7E'),
     look('barn_red', 'Barn red', '#B23A2E'), look('cream', 'Cream', '#F2E6CC'), look('charcoal', 'Charcoal', '#3A3A40'),
-    look('sky', 'Sky', '#8CC8EA')],
+    look('sky', 'Sky', '#8CC8EA'), look('snow', 'Snow white', '#FFFFFF'), look('blush', 'Blush pink', '#F4B6C2')],
+  // the two farmers are Mnki and Swan (MNKISWAN Cozy World): his red hoodie, dark trousers, fluffy dark hair and golden
+  // headband; her white hoodie, pink skirt, long chestnut hair and swan hood
   defaults: {
-    p1: { body: 'farmer_a', hair: 'short', hairColor: '#4A3022', skin: '#EFC9A8', top: '#2BB3A3', bottom: '#3E6FA8',
-      hat: 'straw_hat' },
-    p2: { body: 'farmer_b', hair: 'long', hairColor: '#7A4A2A', skin: '#EFC9A8', top: '#FF7A6B', bottom: '#3E6FA8',
-      hat: 'none' },
+    p1: { body: 'farmer_a', hair: 'curly', hairColor: '#4A3022', skin: '#DDAA82', top: '#B23A2E', bottom: '#3A3A40',
+      hat: 'monkey_band' },
+    p2: { body: 'farmer_b', hair: 'long', hairColor: '#7A4A2A', skin: '#EFC9A8', top: '#FFFFFF', bottom: '#F4B6C2',
+      hat: 'swan_hood' },
   },
 };

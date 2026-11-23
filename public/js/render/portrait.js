@@ -53,6 +53,12 @@ const LOOK_FIELDS = ['hair', 'hairColor', 'skin', 'top', 'bottom', 'hat'];
 const HEX = /^#[0-9a-fA-F]{6}$/;
 
 /** The rig a player's farmer uses (avatars-view bodyFor: their chosen build, else farmer 2 is B and everyone else A). */
+/** The canon Mnki (p1) and Swan (p2): a copy of content AVATAR_LOOKS.defaults (this module stays import-free; a test
+ *  keeps the two equal). */
+export const CANON = Object.freeze({
+  p1: Object.freeze({ body: 'farmer_a', hair: 'curly', hairColor: '#4A3022', skin: '#DDAA82', top: '#B23A2E', bottom: '#3A3A40', hat: 'monkey_band' }),
+  p2: Object.freeze({ body: 'farmer_b', hair: 'long', hairColor: '#7A4A2A', skin: '#EFC9A8', top: '#FFFFFF', bottom: '#F4B6C2', hat: 'swan_hood' }),
+});
 function bodyOf(pid, player) {
   const b = player && player.avatar && player.avatar.body;
   if (b === 'farmer_a' || b === 'farmer_b') return b;
@@ -62,7 +68,9 @@ function bodyOf(pid, player) {
 /** What a farmer's portrait depends on. Pure. */
 export function portraitSpec(pid, player) {
   const color = player && typeof player.color === 'string' && HEX.test(player.color) ? player.color.toUpperCase() : '#2BB3A3';
-  return { pid: String(pid), body: bodyOf(pid, player), color, avatar: (player && player.avatar) || null };
+  // a farmer who never chose a look is their slot's Mnki (p1) or Swan (p2): content AVATAR_LOOKS.defaults
+  const avatar = (player && player.avatar) || CANON[String(pid)] || null;
+  return { pid: String(pid), body: bodyOf(pid, { avatar }), color, avatar };
 }
 
 // The farmer model's manifest entry goes into the key, so a rebuilt farmer (another mesh, size or own hat) is drawn again
