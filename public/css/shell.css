@@ -1614,3 +1614,6 @@ body.motion-reduced #boot.lifting { transition-duration: 1ms; }
 /* Swan's comments (game/swan-says.js): her face in the toast's round badge */
 .toast .ti.ti--swan { background: #FFF8EC; overflow: hidden; box-shadow: 0 0 0 2px #E8556E; }
 .toast .ti.ti--swan img { width: 30px; height: 30px; object-fit: cover; display: block; }
+/* the link to MNKISWAN Cozy World (public/cozy-world) under the farmer picker */
+.cozy-link { margin: 10px 0 0; text-align: center; font-size: .9375rem; }
+.cozy-link a { color: #5a7a4a; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }

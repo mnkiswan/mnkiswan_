@@ -4,6 +4,14 @@ Welcome to **MNKISWAN Tree Village**. Swan has a picnic cloth. Mnki has two spoo
 
 **▶ Play it in your browser:** https://mnkiswan.github.io/mnkiswan_/ (no install, no server; your village is saved in your browser).
 
+**▶ Play MNKISWAN Cozy World:** https://mnkiswan.github.io/mnkiswan_/cozy-world/ — the woodland life game from the
+MNKISWAN Godot project, rebuilt for the browser: thirteen places on one map, Mnki on the keys and Swan walking beside him
+(Q swaps who you play), gathering, a paddy field, calm fishing, Thronn's animals, the market stall, the three guardians,
+the two-storey treehouse to rest in and decorate, and twelve village requests that end in a lantern-lit gathering. WASD to
+walk, click the world to look with the mouse, E to interact, I / J / M for the bag, journal and map. It saves in your
+browser. The source is `public/cozy-world/` (three.js, no build step); its rules are tested in
+`test/cozy-world.state.test.js`.
+
 **Mnki and Swan are always together**, as in MNKISWAN Cozy World. Farmer 1 is Mnki (red hoodie, golden headband, curled
 tail) and farmer 2 is Swan (white hoodie, pink skirt, swan hood and little wings). Playing alone, the other one walks
 beside you everywhere; press their chip at the top of the screen to swap and play as them instead. When your partner

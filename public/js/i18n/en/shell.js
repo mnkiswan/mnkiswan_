@@ -80,6 +80,7 @@ export default {
   'shell.html.levelSr': 'Farm level',
   'shell.html.xpBar': 'Farm XP',
   'shell.html.farmers': 'Farmers',
+  'shell.cozyWorld': 'Or play MNKISWAN Cozy World: the woodland village with Mnki and Swan →',
   'shell.html.goals': 'Goals',
   'shell.html.treasury': 'Treasury',
   'shell.html.coinsTip': 'Farm treasury (shared). Open the Market',

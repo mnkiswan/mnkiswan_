@@ -76,6 +76,7 @@ export default {
   'shell.html.levelSr': 'Ниво на фермата',
   'shell.html.xpBar': 'Опит на фермата',
   'shell.html.farmers': 'Фермери',
+  'shell.cozyWorld': 'Или играйте MNKISWAN Cozy World: горското селце с Мнки и Суон →',
   'shell.html.goals': 'Цели',
   'shell.html.treasury': 'Каса',
   'shell.html.coinsTip': 'Касата на фермата (обща). Отвори пазара',

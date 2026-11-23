@@ -49,7 +49,11 @@ fs.mkdirSync(OUT, { recursive: true });
 
 // 1. the game files in the repo's layout
 const notHtml = (a) => !/\.(html)$/.test(a) || /privacy\.html$/.test(a);
-copyDir(path.join(ROOT, 'public'), path.join(OUT, 'public'), notHtml);
+const COZY = path.join(ROOT, 'public', 'cozy-world');
+copyDir(path.join(ROOT, 'public'), path.join(OUT, 'public'), (a) => notHtml(a) && !a.startsWith(COZY));
+// MNKISWAN Cozy World (the Godot game, in the browser): its own static page at <base>/cozy-world/, three.js from
+// ../vendor/three (its import map is relative, so it works under any base)
+copyDir(COZY, path.join(OUT, 'cozy-world'));
 copyDir(path.join(ROOT, 'shared'), path.join(OUT, 'shared'));
 const three = path.join(ROOT, 'node_modules', 'three');
 copyDir(path.join(three, 'build'), path.join(OUT, 'vendor', 'three', 'build'));
