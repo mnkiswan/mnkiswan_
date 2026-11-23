@@ -1611,3 +1611,6 @@ body.motion-reduced #boot.lifting { transition-duration: 1ms; }
   #slot-picker .slot-paper::before { display: none; }
   .picnic-table { max-width: 19rem; }
 }
+/* Swan's comments (game/swan-says.js): her face in the toast's round badge */
+.toast .ti.ti--swan { background: #FFF8EC; overflow: hidden; box-shadow: 0 0 0 2px #E8556E; }
+.toast .ti.ti--swan img { width: 30px; height: 30px; object-fit: cover; display: block; }

@@ -144,6 +144,67 @@ export const NPCS = [
       'Lesson of the day: everything grows faster with a friend.',
     ],
   },
+  // The MNKISWAN villagers (from MNKISWAN Cozy World): they write the Village chain (V), Mnki and Swan's own story.
+  {
+    id: 'willow', name: 'Elder Willow', m: 'M1a', role: 'village elder', from: 2, townsfolk: true,
+    voice: 'gentle, unhurried, believes a village grows one small kindness at a time',
+    portrait: { skin: '#E6C2A0', hair: '#EDE8F0', hairStyle: 'bun', outfit: '#A58CB1', accent: '#E9B44C',
+      accessory: 'glasses' },
+    likes: ['strawberry_jam', 'bread', 'apple'],
+    lines: [
+      'A village grows one small kindness at a time.',
+      'Land. Water. Forest. Together. The old guardians said it first.',
+      'I\'ve left a new request at the board. No hurry. There never is.',
+    ],
+  },
+  {
+    id: 'thronn', name: 'Thronn', m: 'M1a', role: 'animal keeper', from: 3, townsfolk: true,
+    voice: 'big, quiet, soft-spoken with every creature',
+    portrait: { skin: '#B07A55', hair: '#3A2A1E', hairStyle: 'beard', outfit: '#6999A2', accent: '#E9E2D0',
+      accessory: 'hat' },
+    likes: ['chicken_feed', 'carrot', 'milk'],
+    lines: [
+      'I saved a place for you two.',
+      'Our animals like a gentle hello, a little food and a good brushing.',
+      'Feathers or fur, everybody likes to be noticed.',
+    ],
+  },
+  {
+    id: 'flora', name: 'Flora', m: 'M1a', role: 'flower gardener', from: 5, townsfolk: true,
+    voice: 'bright and unexpected, sees a colour in everything',
+    portrait: { skin: '#F2C9A8', hair: '#B5654A', hairStyle: 'curls', outfit: '#CE8E9F', accent: '#F2C14E',
+      accessory: 'flower' },
+    likes: ['sunflower', 'strawberry', 'cherry'],
+    lines: [
+      'I\'d love to see more colours beside the old tree.',
+      'I grow the unexpected things. Somehow every garden needs both kinds.',
+      'Wildflowers never ask permission. I like that about them.',
+    ],
+  },
+  {
+    id: 'pippa', name: 'Pippa', m: 'M1a', role: 'field farmer', from: 2, townsfolk: true,
+    voice: 'patient, practical, never in a rush',
+    portrait: { skin: '#D9A07A', hair: '#C99A3E', hairStyle: 'braid', outfit: '#CCA45C', accent: '#7E9C6B',
+      accessory: 'hat' },
+    likes: ['carrot', 'tomato', 'veggie_soup'],
+    lines: [
+      'Plant a seed, give it water, and let time do the rest.',
+      'Nothing here needs you to hurry.',
+      'Small seeds, patient hands. That\'s the whole secret.',
+    ],
+  },
+  {
+    id: 'milo', name: 'Milo', m: 'M1a', role: 'village grocer', from: 4, townsfolk: true,
+    voice: 'warm shopkeeper, counts twice, rounds up for friends',
+    portrait: { skin: '#C08462', hair: '#2B2B2B', hairStyle: 'short', outfit: '#C08462', accent: '#F4E3C1',
+      accessory: 'apron' },
+    likes: ['apple_juice', 'cookies', 'potato'],
+    lines: [
+      'Grown with care, shared with love. That\'s what the stall sign says.',
+      'Choose a quantity before you sell. Keep what a friend asked for.',
+      'Sunshine, by the basketful. I\'ll take two baskets.',
+    ],
+  },
 ];
 
 /** Hair styles and accessories the UI portrait renderer must draw (a closed set, validated). */

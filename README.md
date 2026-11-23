@@ -8,6 +8,13 @@ Open **Your look** to try Mnki’s red farm outfit or Swan’s cream outfit and 
 
 **Picnic Pairs** is a memory game you can play while your crops grow. Open the Farm book, choose Picnic Pairs and turn over two cards at a time to find all six foods. Each player has their own board. Closing the panel ends the round.
 
+**From MNKISWAN Cozy World** (the Godot game): five villagers move in (Elder Willow, Thronn, Flora, Pippa and Milo)
+and write the **Village chain**, eleven letters from level 5 to level 14 that end with the village gathering, "A World
+Worth Returning To". **Swan** says a gentle line at the milestones (the first harvest, the first fish, a new level, a
+Village letter answered), at most one a minute. Grandma's farmhouse gets the **Treehouse set**: a Woven Sunset Rug,
+Firefly Lantern, Little Fern, Together Portrait, Mushroom Stool, Treasures Shelf, Garden Vase, Wicker Basket, Guardian
+Keepsake and Morning Tea Set.
+
 This is MNKISWAN’s adaptation of [Harness Hollow by Krasimir Kralev](https://github.com/KrasimirKralev/harvest-hollow). The duo badge and hand-painted wildflower border come from the MNKISWAN artwork collection.
 
 ## Play on GitHub Pages

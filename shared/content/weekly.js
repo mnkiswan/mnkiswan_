@@ -120,6 +120,11 @@ const DECOR_GIFTS = {
   rosie: gifts('milk_churn', 'picnic_table', 'tulip_planter'),
   tom: gifts('snow_lantern', 'pumpkin_lanterns', 'garden_gnome'),
   lucia: gifts('tulip_planter', 'bird_feeder', 'sunflower_planter'),
+  willow: gifts('bird_feeder', 'snow_lantern', 'picnic_table'),
+  thronn: gifts('milk_churn', 'bird_feeder', 'lucky_horseshoe'),
+  flora: gifts('tulip_planter', 'sunflower_planter', 'flower_cart'),
+  pippa: gifts('sunflower_planter', 'milk_churn', 'garden_gnome'),
+  milo: gifts('flower_cart', 'bunting', 'picnic_table'),
 };
 const likesOf = (id) => NPCS.find((n) => n.id === id)?.likes ?? [];
 const GIFTS = Object.fromEntries(Object.entries(DECOR_GIFTS).map(([id, [a, b, c]]) => [id, [{ decor: a },

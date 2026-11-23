@@ -173,7 +173,7 @@ test('townsfolk board and Friendship (GDD §5.3, L21): every townsperson pays a 
   assert.deepEqual([fr.max, fr.rewardEvery, fr.goldenOrder, fr.request, fr.chainQuest, fr.giftPerDay],
     [10, 2, 1, 1, 2, 1]);
   const folk = [...CONTENT.npcs.values()].filter((n) => n.townsfolk);
-  assert.equal(folk.length, 10);
+  assert.equal(folk.length, 15); // 10 of GDD §5.3 and the 5 MNKISWAN villagers
   for (const n of folk) {
     const rw = fr.rewards[n.id];
     assert.equal(rw.length, 5, n.id);

@@ -797,6 +797,19 @@ const QUESTS_RAW = [
   ['h5', 'H', "Grandma's Journal", 25, 'A Cake for Two', [['together', 'duet', 1]], 120, '2 Hearts each; Memory Book page'],
   ['h6', 'H', "Grandma's Journal", 30, 'Gone Fishing', [['together', 'dock', 1]], 120, '2 Hearts each'],
   ['h7', 'H', "Grandma's Journal", 39, 'Golden Hour on the Hill', [['together', 'bench', 1]], 120, 'Memory Book frame; 3 Hearts each'],
+  // The Village chain (V): Mnki and Swan's own story, from MNKISWAN Cozy World's twelve village requests. It starts
+  // after the first evening (L5) so the onboarding cards keep their slots, and ends at L14 with the village gathering.
+  ['v1', 'V', 'Pippa', 5, 'Small Beginnings', [['plant', 'carrot', 4], ['harvest', 'carrot', 4]], 6, '—'],
+  ['v2', 'V', 'Thronn', 5, 'Feathers and Fur', [['tend', 'chicken', 3], ['collect', 'egg', 3]], 8, '—'],
+  ['v3', 'V', 'Elder Willow', 6, 'A Welcome Basket', [['harvest', 'strawberry', 6], ['deliver', 'strawberry', 3]], 10, 'A Flower Bed for the village'],
+  ['v4', 'V', 'Milo', 7, 'Our First Market Day', [['sell', 'carrot', 8], ['fill', 'order', 2]], 12, '—'],
+  ['v5', 'V', 'Pippa', 8, 'From Seed to Supper', [['harvest', 'tomato', 6], ['make', 'bread', 2]], 15, '—'],
+  ['v6', 'V', 'Milo', 9, 'Room for Good Things', [['upgrade', 'slot', 1]], 20, '—'],
+  ['v7', 'V', 'Elder Willow', 10, 'The Three Guardians', [['plant', 'pine', 1], ['plant', 'apple_tree', 2], ['harvest', 'wheat', 12]], 30, '—'],
+  ['v8', 'V', 'Flora', 11, 'Colours for the Village', [['plant', 'sunflower', 6], ['harvest', 'sunflower', 6]], 30, '—'],
+  ['v9', 'V', 'Thronn', 12, 'Pondside Picnic', [['make', 'strawberry_jam', 2], ['make', 'veggie_soup', 1]], 40, '—'],
+  ['v10', 'V', 'Elder Willow', 13, 'Make It Ours', [['reach', 'beauty_star', 1], ['clear', 'debris', 3]], 45, '—'],
+  ['v11', 'V', 'Elder Willow', 14, 'A World Worth Returning To', [['fill', 'order', 6], ['make', 'cookies', 2]], 90, 'The village gathering: a Garden Lantern; 3 Acorns'],
 ];
 const SPECIAL_REFS = new Set(['order', 'debris', 'demand', 'plot', 'forage', 'barn', 'slot', 'bundle', 'beauty_star',
   'project', 'crate', 'row', 'barge', 'fair', 'prized', 'fair_silver', 'bench', 'duet', 'help_flag', 'giant',

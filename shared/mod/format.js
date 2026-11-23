@@ -71,7 +71,7 @@ export const UNLOCK_RANGE = Object.freeze([1, 40]);
 export const SKIES = Object.freeze(['default', 'golden', 'pastel', 'cool', 'stormy']);
 /** Who may write a letter: Grandma Hazel and the townsfolk (shared/content/npcs.js). */
 export const LETTER_FROM = Object.freeze(['hazel', 'mabel', 'ollie', 'fern', 'juniper', 'reed', 'pemberton', 'pip',
-  'rosie', 'tom', 'lucia']);
+  'rosie', 'tom', 'lucia', 'willow', 'thronn', 'flora', 'pippa', 'milo']);
 /** look.json palette keys of format 1 before 1.0 (read only from stored versions, never compiled: see REMOVED). */
 export const PALETTE_VARS = Object.freeze({
   grass: '--grass-lit', leaf: '--leaf-mid', skyTop: '--sky-top', skyHorizon: '--sky-horizon', barn: '--barn-red',

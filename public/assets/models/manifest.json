@@ -1,6 +1,6 @@
 {
  "version": 1,
- "hash": "d4fe4bf650",
+ "hash": "915b65d5c8",
  "units": "metres; 1 tile = 2 m; origin = footprint centre on the ground; +Z forward",
  "files": {
   "animals/alpaca.glb": {
@@ -648,6 +648,9 @@
   "furniture/fern_pot.glb": {
    "bytes": 6076
   },
+  "furniture/firefly_lantern.glb": {
+   "bytes": 8316
+  },
   "furniture/fireplace.glb": {
    "bytes": 10876
   },
@@ -657,8 +660,14 @@
   "furniture/footstool.glb": {
    "bytes": 12400
   },
+  "furniture/garden_vase.glb": {
+   "bytes": 4368
+  },
   "furniture/gramophone.glb": {
    "bytes": 5788
+  },
+  "furniture/guardian_keepsake.glb": {
+   "bytes": 6396
   },
   "furniture/hall_runner.glb": {
    "bytes": 6640
@@ -678,11 +687,20 @@
   "furniture/lemon_pot.glb": {
    "bytes": 13096
   },
+  "furniture/little_fern.glb": {
+   "bytes": 4916
+  },
   "furniture/memory_frame.glb": {
    "bytes": 3840
   },
   "furniture/memory_wall.glb": {
    "bytes": 10388
+  },
+  "furniture/morning_tea_set.glb": {
+   "bytes": 10092
+  },
+  "furniture/mushroom_stool.glb": {
+   "bytes": 9588
   },
   "furniture/oval_mirror.glb": {
    "bytes": 6120
@@ -720,11 +738,23 @@
   "furniture/sofa.glb": {
    "bytes": 12984
   },
+  "furniture/sunset_rug.glb": {
+   "bytes": 7684
+  },
   "furniture/tea_trolley.glb": {
    "bytes": 14240
   },
+  "furniture/together_portrait.glb": {
+   "bytes": 7960
+  },
+  "furniture/treasures_shelf.glb": {
+   "bytes": 10140
+  },
   "furniture/valley_painting.glb": {
    "bytes": 3984
+  },
+  "furniture/wicker_basket.glb": {
+   "bytes": 13824
   },
   "furniture/window_seat.glb": {
    "bytes": 7044
@@ -1704,6 +1734,12 @@
     "tree:fig_tree:ready"
    ]
   },
+  "firefly_lantern": {
+   "family": "furniture",
+   "keys": [
+    "furniture:firefly_lantern"
+   ]
+  },
   "fireplace": {
    "family": "furniture",
    "keys": [
@@ -1762,6 +1798,12 @@
    "family": "decor",
    "keys": [
     "decor:garden_gnome"
+   ]
+  },
+  "garden_vase": {
+   "family": "furniture",
+   "keys": [
+    "furniture:garden_vase"
    ]
   },
   "gazebo": {
@@ -1872,6 +1914,12 @@
    "family": "decor",
    "keys": [
     "decor:growth_totem"
+   ]
+  },
+  "guardian_keepsake": {
+   "family": "furniture",
+   "keys": [
+    "furniture:guardian_keepsake"
    ]
   },
   "hall_runner": {
@@ -2047,6 +2095,12 @@
     "decor:lighthouse_souvenir"
    ]
   },
+  "little_fern": {
+   "family": "furniture",
+   "keys": [
+    "furniture:little_fern"
+   ]
+  },
   "log": {
    "family": "debris",
    "keys": [
@@ -2164,6 +2218,18 @@
    "family": "decor",
    "keys": [
     "decor:millpond_bridge_souvenir"
+   ]
+  },
+  "morning_tea_set": {
+   "family": "furniture",
+   "keys": [
+    "furniture:morning_tea_set"
+   ]
+  },
+  "mushroom_stool": {
+   "family": "furniture",
+   "keys": [
+    "furniture:mushroom_stool"
    ]
   },
   "music_hall_souvenir": {
@@ -3076,6 +3142,12 @@
     "decor:sunset_bench:3"
    ]
   },
+  "sunset_rug": {
+   "family": "furniture",
+   "keys": [
+    "furniture:sunset_rug"
+   ]
+  },
   "tea_room_souvenir": {
    "family": "decor",
    "keys": [
@@ -3086,6 +3158,12 @@
    "family": "furniture",
    "keys": [
     "furniture:tea_trolley"
+   ]
+  },
+  "together_portrait": {
+   "family": "furniture",
+   "keys": [
+    "furniture:together_portrait"
    ]
   },
   "tomato": {
@@ -3167,6 +3245,12 @@
    "family": "decor",
    "keys": [
     "decor:topiary"
+   ]
+  },
+  "treasures_shelf": {
+   "family": "furniture",
+   "keys": [
+    "furniture:treasures_shelf"
    ]
   },
   "treehouse": {
@@ -3285,6 +3369,12 @@
    "family": "decor",
    "keys": [
     "decor:wheelbarrow"
+   ]
+  },
+  "wicker_basket": {
+   "family": "furniture",
+   "keys": [
+    "furniture:wicker_basket"
    ]
   },
   "wind_chime": {
@@ -18388,6 +18478,37 @@
    ],
    "tris": 228
   },
+  "furniture:firefly_lantern": {
+   "file": "furniture/firefly_lantern.glb",
+   "node": "furniture-firefly_lantern",
+   "kind": "static",
+   "scale": 1,
+   "yOffset": 0,
+   "family": "furniture",
+   "def": "firefly_lantern",
+   "footprint": [
+    1,
+    1
+   ],
+   "layer": "object",
+   "glow": true,
+   "size": [
+    0.342,
+    0.762,
+    0.36
+   ],
+   "min": [
+    -0.171,
+    0,
+    -0.18
+   ],
+   "max": [
+    0.171,
+    0.762,
+    0.18
+   ],
+   "tris": 328
+  },
   "furniture:fireplace": {
    "file": "furniture/fireplace.glb",
    "node": "furniture-fireplace",
@@ -18480,6 +18601,36 @@
    ],
    "tris": 412
   },
+  "furniture:garden_vase": {
+   "file": "furniture/garden_vase.glb",
+   "node": "furniture-garden_vase",
+   "kind": "static",
+   "scale": 1,
+   "yOffset": 0,
+   "family": "furniture",
+   "def": "garden_vase",
+   "footprint": [
+    1,
+    1
+   ],
+   "layer": "object",
+   "size": [
+    0.213,
+    0.556,
+    0.224
+   ],
+   "min": [
+    -0.107,
+    0,
+    -0.112
+   ],
+   "max": [
+    0.107,
+    0.556,
+    0.112
+   ],
+   "tris": 166
+  },
   "furniture:gramophone": {
    "file": "furniture/gramophone.glb",
    "node": "furniture-gramophone",
@@ -18509,6 +18660,36 @@
     0.25
    ],
    "tris": 288
+  },
+  "furniture:guardian_keepsake": {
+   "file": "furniture/guardian_keepsake.glb",
+   "node": "furniture-guardian_keepsake",
+   "kind": "static",
+   "scale": 1,
+   "yOffset": 0,
+   "family": "furniture",
+   "def": "guardian_keepsake",
+   "footprint": [
+    1,
+    1
+   ],
+   "layer": "object",
+   "size": [
+    0.5,
+    0.26,
+    0.22
+   ],
+   "min": [
+    -0.25,
+    0,
+    -0.11
+   ],
+   "max": [
+    0.25,
+    0.26,
+    0.11
+   ],
+   "tris": 360
   },
   "furniture:hall_runner": {
    "file": "furniture/hall_runner.glb",
@@ -18690,6 +18871,37 @@
    ],
    "tris": 400
   },
+  "furniture:little_fern": {
+   "file": "furniture/little_fern.glb",
+   "node": "furniture-little_fern",
+   "kind": "static",
+   "scale": 1,
+   "yOffset": 0,
+   "family": "furniture",
+   "def": "little_fern",
+   "footprint": [
+    1,
+    1
+   ],
+   "layer": "object",
+   "doubleSided": true,
+   "size": [
+    0.653,
+    0.291,
+    0.578
+   ],
+   "min": [
+    -0.327,
+    0,
+    -0.343
+   ],
+   "max": [
+    0.327,
+    0.291,
+    0.235
+   ],
+   "tris": 156
+  },
   "furniture:memory_frame": {
    "file": "furniture/memory_frame.glb",
    "node": "furniture-memory_frame",
@@ -18749,6 +18961,66 @@
     0.35
    ],
    "tris": 516
+  },
+  "furniture:morning_tea_set": {
+   "file": "furniture/morning_tea_set.glb",
+   "node": "furniture-morning_tea_set",
+   "kind": "static",
+   "scale": 1,
+   "yOffset": 0,
+   "family": "furniture",
+   "def": "morning_tea_set",
+   "footprint": [
+    1,
+    1
+   ],
+   "layer": "object",
+   "size": [
+    0.52,
+    0.824,
+    0.52
+   ],
+   "min": [
+    -0.26,
+    0,
+    -0.26
+   ],
+   "max": [
+    0.26,
+    0.824,
+    0.26
+   ],
+   "tris": 636
+  },
+  "furniture:mushroom_stool": {
+   "file": "furniture/mushroom_stool.glb",
+   "node": "furniture-mushroom_stool",
+   "kind": "static",
+   "scale": 1,
+   "yOffset": 0,
+   "family": "furniture",
+   "def": "mushroom_stool",
+   "footprint": [
+    1,
+    1
+   ],
+   "layer": "object",
+   "size": [
+    0.52,
+    0.487,
+    0.52
+   ],
+   "min": [
+    -0.26,
+    0,
+    -0.26
+   ],
+   "max": [
+    0.26,
+    0.487,
+    0.26
+   ],
+   "tris": 364
   },
   "furniture:oval_mirror": {
    "file": "furniture/oval_mirror.glb",
@@ -19082,6 +19354,36 @@
    ],
    "tris": 900
   },
+  "furniture:sunset_rug": {
+   "file": "furniture/sunset_rug.glb",
+   "node": "furniture-sunset_rug",
+   "kind": "static",
+   "scale": 1,
+   "yOffset": 0,
+   "family": "furniture",
+   "def": "sunset_rug",
+   "footprint": [
+    2,
+    2
+   ],
+   "layer": "floor",
+   "size": [
+    1.7,
+    0.016,
+    1.5
+   ],
+   "min": [
+    -0.85,
+    0,
+    -0.75
+   ],
+   "max": [
+    0.85,
+    0.016,
+    0.75
+   ],
+   "tris": 372
+  },
   "furniture:tea_trolley": {
    "file": "furniture/tea_trolley.glb",
    "node": "furniture-tea_trolley",
@@ -19112,6 +19414,66 @@
    ],
    "tris": 836
   },
+  "furniture:together_portrait": {
+   "file": "furniture/together_portrait.glb",
+   "node": "furniture-together_portrait",
+   "kind": "static",
+   "scale": 1,
+   "yOffset": 0,
+   "family": "furniture",
+   "def": "together_portrait",
+   "footprint": [
+    1,
+    1
+   ],
+   "layer": "wall",
+   "size": [
+    0.54,
+    0.62,
+    0.145
+   ],
+   "min": [
+    -0.27,
+    1.3,
+    0
+   ],
+   "max": [
+    0.27,
+    1.92,
+    0.145
+   ],
+   "tris": 558
+  },
+  "furniture:treasures_shelf": {
+   "file": "furniture/treasures_shelf.glb",
+   "node": "furniture-treasures_shelf",
+   "kind": "static",
+   "scale": 1,
+   "yOffset": 0,
+   "family": "furniture",
+   "def": "treasures_shelf",
+   "footprint": [
+    2,
+    1
+   ],
+   "layer": "wall",
+   "size": [
+    1.51,
+    0.776,
+    0.2
+   ],
+   "min": [
+    -0.755,
+    1.3,
+    0
+   ],
+   "max": [
+    0.755,
+    2.076,
+    0.2
+   ],
+   "tris": 594
+  },
   "furniture:valley_painting": {
    "file": "furniture/valley_painting.glb",
    "node": "furniture-valley_painting",
@@ -19141,6 +19503,36 @@
     0.105
    ],
    "tris": 102
+  },
+  "furniture:wicker_basket": {
+   "file": "furniture/wicker_basket.glb",
+   "node": "furniture-wicker_basket",
+   "kind": "static",
+   "scale": 1,
+   "yOffset": 0,
+   "family": "furniture",
+   "def": "wicker_basket",
+   "footprint": [
+    1,
+    1
+   ],
+   "layer": "object",
+   "size": [
+    0.488,
+    0.364,
+    0.488
+   ],
+   "min": [
+    -0.244,
+    -0.054,
+    -0.244
+   ],
+   "max": [
+    0.244,
+    0.31,
+    0.244
+   ],
+   "tris": 808
   },
   "furniture:window_seat": {
    "file": "furniture/window_seat.glb",

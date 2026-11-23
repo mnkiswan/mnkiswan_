@@ -30,7 +30,7 @@ const M1A = {
     'juice_press'],
   expansions: ['home', 'creekside', 'cow_hill', 'old_orchard', 'fair_lane'],
   quests: ['a1', 'a2', 'a3', 'a4', 'a5', 'a6', 'a7', 'a8', 'a9', 'a10', 'a11', 'b1', 'b2', 'b3', 'c0', 'c1', 'c2', 'c3',
-    'd1', 'e1', 'e2', 'e3'],
+    'd1', 'e1', 'e2', 'e3', 'v1', 'v2', 'v3', 'v4', 'v5', 'v6', 'v7', 'v8', 'v9'],
   collections: [], restoration: [], townProjects: [], decorSets: [],
 };
 // GDD §10 M1b: L13-25 crops, trees and animals, Sewing / Pie Oven / Chandlery / Packing Table, the Harvest Feast and
@@ -50,7 +50,8 @@ const M1B = {
     'stable_paddock'],
   quests: ['a1', 'a2', 'a3', 'a4', 'a5', 'a6', 'a7', 'a8', 'a9', 'a10', 'a11', 'b1', 'b2', 'b3', 'b4', 'b5', 'c0', 'c1',
     'c2', 'c3', 'c4', 'c5', 'c6', 'c7', 'd1', 'd2', 'd3', 'd4', 'd5', 'e1', 'e2', 'e3', 'e4', 'e5', 'e6', 'e7', 'f1',
-    'f2', 'f3', 'g1', 'g2', 'g3', 'h1', 'h2', 'h3', 'h4', 'h5'],
+    'f2', 'f3', 'g1', 'g2', 'g3', 'h1', 'h2', 'h3', 'h4', 'h5', 'v1', 'v2', 'v3', 'v4', 'v5', 'v6', 'v7', 'v8', 'v9', 'v10',
+    'v11'],
   collections: ['recipe_cards', 'butterflies', 'lost_tools', 'feathers', 'heirloom_seeds', 'fossils', 'honey_jars',
     'buttons'],
   restoration: ['greenhouse', 'mill_wheel', 'stone_bridge'],

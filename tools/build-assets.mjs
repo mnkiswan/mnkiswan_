@@ -6693,6 +6693,66 @@ furn('memory_frame', [2, 1], () => mergeAll([box(1.5, 0.9, 0.06, GOLD, { y: 1.2 
   xform(P(new THREE.CircleGeometry(0.55, 14, 0, Math.PI), '#7DB04A'), { y: 1.3, z: 0.075, sx: 1.15, sy: 0.4 }), xform(P(new THREE.CircleGeometry(0.12, 12), '#FF9F43'), { y: 1.48, z: 0.072 }),
   xform(mergeAll([box(0.3, 0.02, 0.01, '#8A5A35'), ...[-0.06, 0.06].map((x) => box(0.04, 0.08, 0.01, '#3A2A1A', { x, y: 0.02 }))]), { x: 0.35, y: 1.36, z: 0.078 })]), { layer: 'wall' });
 
+// the Treehouse set (MNKISWAN Cozy World): the ten pieces of Mnki and Swan's two-storey treehouse
+furn('sunset_rug', [2, 2], () => {
+  const bands = ['#E8556E', '#F2A65A', '#FFC83D', '#C86A8A', '#FFE0A0', '#F2A65A', '#E8556E'];
+  const parts = bands.map((c, i) => box(1.6, 0.016, 1.5 / bands.length, c, { z: -0.75 + (i + 0.5) * (1.5 / bands.length) }));
+  for (const x of [-0.82, 0.82]) for (let i = 0; i < 12; i++) parts.push(box(0.06, 0.012, 0.018, CREAM, { x, z: -0.68 + i * 0.124 }));
+  return mergeAll(parts);
+}, { layer: 'floor' });
+furn('firefly_lantern', [1, 1], () => mergeAll([cyl(0.16, 0.18, 0.05, 10, OAK_D), lathe([[0.13, 0], [0.15, 0.08], [0.15, 0.42], [0.11, 0.48], [0, 0.48]], 12, '#FFF6C8', 40).translate(0, 0.05, 0),
+  cyl(0.12, 0.15, 0.05, 10, OAK_D, { y: 0.52 }), xform(torus(0.09, 0.012, BRASS, {}, 3, 12), { y: 0.66 }),
+  ...[[0.05, 0.18, 0.02], [-0.06, 0.28, 0.04], [0.02, 0.38, -0.06], [-0.03, 0.2, -0.05]].map(([x, y, z]) => ball(0.022, '#FFC83D', { x, y, z }, 0))]), { glow: true });
+furn('little_fern', [1, 1], () => {
+  const parts = [lathe([[0, 0], [0.12, 0], [0.15, 0.2], [0.13, 0.22], [0, 0.19]], 12, TERRACOTTA)];
+  for (let i = 0; i < 10; i++) parts.push(xform(leaf(0.26 + (i % 3) * 0.05, 0.08, i % 2 ? LEAF : LEAF_L, { bend: 0.7, seg: 3 }), { ry: (i / 10) * Math.PI * 2, y: 0.2, rx: 0.4 + (i % 3) * 0.15 }));
+  return mergeAll(parts);
+}, { doubleSided: true });
+furn('together_portrait', [1, 1], () => {
+  const g = frameOnWall(0.5, 0.6, { frame: OAK_D, bands: ['#FFE9C8', '#FFE9C8', '#A8D08D'], y: 1.6 });
+  const z = 0.06;
+  // Mnki: the red hoodie, brown hair and the golden headband
+  const mnki = mergeAll([box(0.1, 0.14, 0.01, '#D9473A', { x: -0.08, y: 1.4, z }), ball(0.05, '#F2C29A', { x: -0.08, y: 1.6, z, sz: 0.3 }, 1),
+    ball(0.058, '#5A3A22', { x: -0.08, y: 1.63, z: z - 0.004, sz: 0.3 }, 1), box(0.1, 0.012, 0.01, GOLD, { x: -0.08, y: 1.63, z: z + 0.012 })]);
+  // Swan: the white swan hood with its orange beak, a little gold crown, long brown hair
+  const swan = mergeAll([box(0.1, 0.14, 0.01, '#FFFFFF', { x: 0.08, y: 1.4, z }), ball(0.066, '#6A4428', { x: 0.08, y: 1.58, z: z - 0.006, sy: 1.3, sz: 0.3 }, 1),
+    ball(0.05, '#F2C29A', { x: 0.08, y: 1.6, z, sz: 0.3 }, 1), ball(0.058, '#FFFFFF', { x: 0.08, y: 1.65, z: z + 0.002, sy: 0.8, sz: 0.3 }, 1),
+    xform(cone(0.014, 0.03, 4, '#F28C1E'), { x: 0.08, y: 1.69, z: z + 0.02, rx: Math.PI / 2 }), cone(0.02, 0.025, 5, GOLD, { x: 0.11, y: 1.69, z })]);
+  return mergeAll([g, mnki, swan, xform(heartGeo(0.05, '#E84A5F'), { y: 1.76, z: z + 0.002 })]);
+}, { layer: 'wall' });
+furn('mushroom_stool', [1, 1], () => mergeAll([lathe([[0, 0], [0.13, 0], [0.11, 0.08], [0.1, 0.3], [0, 0.3]], 12, CREAM),
+  lathe([[0, 0], [0.26, 0], [0.24, 0.07], [0.16, 0.14], [0, 0.17]], 16, '#D9473A', 60).translate(0, 0.3, 0),
+  // white spots on the cap's surface (the cap profile read back: r 0.24 at 0.07, 0.16 at 0.14, 0 at 0.17)
+  ...[[0, 0.17], [0.12, 0.148, 0.3], [0.12, 0.148, 2.4], [0.13, 0.146, 4.4], [0.2, 0.123, 1.2], [0.2, 0.123, 3.3], [0.2, 0.123, 5.3]]
+    .map(([r, y, a = 0]) => ball(0.034, '#FFFBEE', { x: Math.cos(a) * r, y: 0.3 + y + 0.004, z: Math.sin(a) * r, sy: 0.45 }, 0))]));
+furn('treasures_shelf', [2, 1], () => {
+  const parts = [box(1.5, 0.05, 0.2, OAK, { y: 1.35, z: 0.1 }), box(1.5, 0.05, 0.2, OAK, { y: 1.75, z: 0.1 }), ...[-0.73, 0.73].map((x) => box(0.05, 0.5, 0.2, OAK_D, { x, y: 1.3, z: 0.1 }))];
+  // a white swan feather, Mnki's golden spiral, a smooth river stone, a little book and a jar of berries
+  parts.push(xform(leaf(0.24, 0.06, '#FFFFFF', { bend: 0.3, seg: 2 }), { x: -0.5, y: 1.4, z: 0.1, rz: 0.5 }),
+    xform(torus(0.06, 0.014, GOLD, {}, 4, 14), { x: -0.15, y: 1.46, z: 0.1 }), xform(torus(0.03, 0.012, GOLD, {}, 4, 10), { x: -0.15, y: 1.46, z: 0.1 }),
+    ball(0.07, '#9AA0A6', { x: 0.2, y: 1.42, z: 0.1, sy: 0.55 }, 1), xform(book('#2E6FD0', 0.22, 0.05), { x: 0.5, y: 1.4, z: 0.1 }),
+    xform(lathe([[0, 0], [0.05, 0], [0.05, 0.09], [0.035, 0.1], [0, 0.1]], 8, '#BFE3F5'), { x: -0.4, y: 1.8, z: 0.1 }),
+    ...[0, 1, 2].map((i) => ball(0.02, '#C8473A', { x: -0.42 + i * 0.02, y: 1.85, z: 0.1 }, 0)),
+    xform(vase('#E8848C', ['#FFD21F']), { x: 0.4, y: 1.8, z: 0.1, s: 0.8 }));
+  return mergeAll(parts);
+}, { layer: 'wall' });
+furn('garden_vase', [1, 1], () => xform(vase('#7FB8E6', ['#FF7A9C', '#FFD21F', '#FFFFFF']), { s: 1.6 }));
+furn('wicker_basket', [1, 1], () => {
+  const parts = [lathe([[0, 0], [0.2, 0], [0.24, 0.16], [0.23, 0.17], [0, 0.04]], 16, '#C99A62', 40)];
+  for (let i = 0; i < 4; i++) parts.push(xform(torus(0.2 + i * 0.012, 0.008, '#A87A48', {}, 3, 20), { rx: Math.PI / 2, y: 0.03 + i * 0.04 }));
+  parts.push(xform(clipAbove(torus(0.2, 0.014, '#A87A48', {}, 4, 20), 0), { y: 0.16 }),
+    ...[[0.05, 0.03], [-0.06, 0.05], [0.0, -0.06], [0.08, -0.05]].map(([x, z]) => ball(0.035, '#C8473A', { x, y: 0.15, z }, 0)),
+    ...[-0.03, 0.03].map((x) => xform(cyl(0.008, 0.008, 0.2, 4, '#D8DCE0'), { x, y: 0.14, z: 0.1, rx: -0.6 })));
+  return mergeAll(parts);
+});
+furn('guardian_keepsake', [1, 1], () => mergeAll([box(0.5, 0.08, 0.22, OAK, {}), box(0.46, 0.02, 0.18, OAK_L, { y: 0.08 }),
+  ball(0.07, '#8FC86A', { x: -0.15, y: 0.15, sy: 0.7 }, 1), xform(P(new THREE.ConeGeometry(0.035, 0.03, 6), '#5E9E3A'), { x: -0.15, y: 0.2 }),
+  ball(0.07, '#7FB8E6', { y: 0.15, sy: 0.7 }, 1), xform(P(new THREE.TorusGeometry(0.03, 0.008, 3, 12), '#FFFFFF'), { y: 0.2, rx: Math.PI / 2 }),
+  ball(0.07, '#3F8F36', { x: 0.15, y: 0.15, sy: 0.7 }, 1), cone(0.035, 0.08, 6, '#2E6A2A', { x: 0.15, y: 0.18 })]));
+furn('morning_tea_set', [1, 1], () => mergeAll([lathe([[0.16, 0], [0.04, 0.05], [0.04, 0.5], [0.06, 0.55], [0, 0.55]], 8, OAK_D), cyl(0.26, 0.26, 0.04, 16, OAK_L, { y: 0.55 }),
+  cyl(0.2, 0.2, 0.005, 16, '#F4D2D6', { y: 0.59 }), xform(teapot('#FFFFFF'), { y: 0.6, s: 1.2 }),
+  xform(teacup('#E8848C'), { x: 0.15, y: 0.6, z: 0.08 }), xform(teacup('#7FB8E6'), { x: -0.15, y: 0.6, z: 0.08 })]));
+
 /** The room shell (12 x 8 m): oak floorboards, a cream back wall and left wall over a sage wainscot with a dado rail and
  *  skirting, beam ends resting on the walls, a doormat by the door (x 5-6 of the front). Origin at the room's
  *  corner tile (0, 0) north-west: the floor spans x 0..12, z 0..8 (render-world's room grid). */

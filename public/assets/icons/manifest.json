@@ -1,6 +1,6 @@
 {
  "version": 1,
- "hash": "8c4ff9bfb5",
+ "hash": "b4657bc01b",
  "size": [
   128,
   64
@@ -502,6 +502,9 @@
   "fig_tree": {
    "kind": "tree"
   },
+  "firefly_lantern": {
+   "kind": "furniture"
+  },
   "fireplace": {
    "kind": "furniture"
   },
@@ -573,6 +576,9 @@
   },
   "garden_gnome": {
    "kind": "decor"
+  },
+  "garden_vase": {
+   "kind": "furniture"
   },
   "gazebo": {
    "kind": "decor"
@@ -672,6 +678,9 @@
   },
   "growth_totem": {
    "kind": "decor"
+  },
+  "guardian_keepsake": {
+   "kind": "furniture"
   },
   "hall_runner": {
    "kind": "furniture"
@@ -811,6 +820,9 @@
   "lighthouse_souvenir": {
    "kind": "decor"
   },
+  "little_fern": {
+   "kind": "furniture"
+  },
   "livestock_feed": {
    "kind": "item"
   },
@@ -900,6 +912,12 @@
   },
   "moon_melon_tin": {
    "kind": "find"
+  },
+  "morning_tea_set": {
+   "kind": "furniture"
+  },
+  "mushroom_stool": {
+   "kind": "furniture"
   },
   "music_hall_souvenir": {
    "kind": "decor"
@@ -1438,6 +1456,9 @@
   "sunset_bench": {
    "kind": "decor"
   },
+  "sunset_rug": {
+   "kind": "furniture"
+  },
   "swallowtail": {
    "kind": "find"
   },
@@ -1462,6 +1483,9 @@
   "time_turner": {
    "kind": "item"
   },
+  "together_portrait": {
+   "kind": "furniture"
+  },
   "tomato": {
    "kind": "item"
   },
@@ -1470,6 +1494,9 @@
   },
   "toy_horse": {
    "kind": "item"
+  },
+  "treasures_shelf": {
+   "kind": "furniture"
   },
   "treehouse": {
    "kind": "decor"
@@ -1551,6 +1578,9 @@
   },
   "wheelbarrow": {
    "kind": "decor"
+  },
+  "wicker_basket": {
+   "kind": "furniture"
   },
   "wide_sickle": {
    "kind": "tool"

@@ -876,6 +876,20 @@ function pieceTop(def, w, h) {
     case 'fireplace':
       return [R2(x, y, iw, ih, '#A9A397'), R2(x + iw * 0.25, y + ih * 0.3, iw * 0.5, ih * 0.6, '#3E2612'),
         s('path', { d: `M${w / 2 - 2} ${y + ih * 0.85} q2 -4 0 -6 q3 2 2 6 z`, fill: '#FFB04A' })];
+    // the Treehouse set (MNKISWAN Cozy World)
+    case 'sunset_rug':
+      return [R2(x, y, iw, ih, '#F2A65A', { rx: 2 }), ...['#E8556E', '#FFC83D', '#C86A8A', '#FFE0A0'].map((c, i) => L2(`M${x + 1} ${y + 2.4 + i * (ih - 4.8) / 3} h${iw - 2}`, c, 1.4))];
+    case 'firefly_lantern': return [C2(w / 2, h / 2, Math.min(iw, ih) / 1.6, '#FFE58A', { stroke: 'none', opacity: 0.5 }), C2(w / 2, h / 2, Math.min(iw, ih) / 3.2, '#FFF6C8'),
+      ...[0, 1, 2].map((i) => C2(w / 2 + Math.cos(i * 2.1) * 1.3, h / 2 + Math.sin(i * 2.1) * 1.3, 0.45, '#FFC83D', { 'stroke-width': 0 }))];
+    case 'little_fern': return [C2(w / 2, h / 2, Math.min(iw, ih) / 3, '#C8643A'), ...[0, 1, 2, 3, 4, 5].map((i) => L2(`M${w / 2} ${h / 2} l${Math.cos(i * 1.05) * 3} ${Math.sin(i * 1.05) * 3}`, '#3F8F36', 0.8))];
+    case 'mushroom_stool': return [C2(w / 2, h / 2, Math.min(iw, ih) / 2.4, '#D9473A'), ...[[-1.4, -1], [1.3, -0.6], [0, 1.4], [-1.1, 1.2]].map(([dx, dz]) => C2(w / 2 + dx, h / 2 + dz, 0.6, '#FFFBEE', { 'stroke-width': 0 }))];
+    case 'garden_vase': return [C2(w / 2, h / 2, Math.min(iw, ih) / 3.2, '#7FB8E6'), ...['#FF7A9C', '#FFD21F', '#FFFFFF', '#C86A8A'].map((c, i) => C2(w / 2 + Math.cos(i * 1.57 + 0.4) * 1.6, h / 2 + Math.sin(i * 1.57 + 0.4) * 1.6, 0.9, c, { 'stroke-width': 0.4 }))];
+    case 'wicker_basket': return [C2(w / 2, h / 2, Math.min(iw, ih) / 2.4, '#C99A62'), C2(w / 2, h / 2, Math.min(iw, ih) / 3.4, '#E2BE84', { 'stroke-width': 0.5 }),
+      C2(w / 2 - 0.9, h / 2, 0.7, '#E8556E', { 'stroke-width': 0.3 }), C2(w / 2 + 0.9, h / 2 + 0.4, 0.7, '#E8556E', { 'stroke-width': 0.3 })];
+    case 'guardian_keepsake': return [R2(x + 0.6, y + ih * 0.25, iw - 1.2, ih * 0.5, '#A9A397', { rx: 1 }), C2(x + iw * 0.25, h / 2, 1, '#8FC86A', { 'stroke-width': 0.4 }),
+      C2(w / 2, h / 2, 1, '#7FB8E6', { 'stroke-width': 0.4 }), C2(x + iw * 0.75, h / 2, 1, '#3F8F36', { 'stroke-width': 0.4 })];
+    case 'morning_tea_set': return [C2(w / 2, h / 2, Math.min(iw, ih) / 2.2, '#C98A4B'), C2(w / 2, h / 2 - 0.6, 1.4, '#FFFBEE', { 'stroke-width': 0.5 }),
+      C2(w / 2 - 2, h / 2 + 1.3, 0.8, '#E8848C', { 'stroke-width': 0.4 }), C2(w / 2 + 2, h / 2 + 1.3, 0.8, '#7FB8E6', { 'stroke-width': 0.4 })];
     default:
       return [R2(x, y, iw, ih, fill)];
   }
@@ -888,6 +902,10 @@ function pieceWall(def, w, h) {
   switch (id) {
     case 'valley_painting': case 'memory_frame':
       return frame([s('path', { d: `M2.2 ${h * 0.62} Q${w / 2} ${h * 0.35} ${w - 2.2} ${h * 0.6} V${h - 2.2} H2.2 Z`, fill: '#7CC243' }), C2(w * 0.72, h * 0.35, 1.2, '#FFC83D', { 'stroke-width': 0.4 })]);
+    case 'together_portrait': return frame([C2(w * 0.36, h * 0.48, 1.7, '#D9473A', { 'stroke-width': 0.5 }), C2(w * 0.64, h * 0.48, 1.7, '#FFFBEE', { 'stroke-width': 0.5 }),
+      s('path', { d: `M${w * 0.64 - 0.6} ${h * 0.34} l1.2 0 l-0.6 1 z`, fill: '#F28C1E' }), s('path', { d: `M${w / 2 - 0.8} ${h * 0.3} a0.4 0.4 0 0 1 0.8 0 a0.4 0.4 0 0 1 0.8 0 q0 0.6 -0.8 1.1 q-0.8 -0.5 -0.8 -1.1 z`, fill: '#E84A5F' })]);
+    case 'treasures_shelf': return [R2(0.6, h * 0.58, w - 1.2, 1.8, '#8A5224'), s('path', { d: `M3 ${h * 0.58} q1 -3.6 2.4 -4.4`, fill: 'none', stroke: '#FFFBEE', 'stroke-width': 0.9 }),
+      C2(w * 0.45, h * 0.46, 1.4, '#D9A441', { 'stroke-width': 0.4 }), s('ellipse', { cx: w * 0.75, cy: h * 0.5, rx: 2, ry: 1, fill: '#9AA0A6', ...thin(0.4) })];
     case 'couple_photo': return frame([C2(w * 0.38, h / 2, 1.6, '#2BB3A3', { 'stroke-width': 0.5 }), C2(w * 0.62, h / 2, 1.6, '#FF7A6B', { 'stroke-width': 0.5 })]);
     case 'hazel_portrait': return frame([C2(w / 2, h * 0.44, 2, '#F7C8A8', { 'stroke-width': 0.5 }), s('path', { d: `M${w / 2 - 2.4} ${h * 0.34} q2.4 -2.4 4.8 0`, fill: '#E6E6E6', ...thin(0.4) })]);
     case 'cuckoo_clock': return [s('path', { d: `M1.5 ${h * 0.45} L${w / 2} 1 L${w - 1.5} ${h * 0.45} V${h - 1} H1.5 Z`, fill: '#8A5224', ...thin(1) }), C2(w / 2, h * 0.62, 2.2, '#FFFBEE', { 'stroke-width': 0.6 })];

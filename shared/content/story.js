@@ -649,6 +649,86 @@ export const QUEST_STORY = {
     done: 'Golden Hour on the hill. The last page of the journal, and a gilded frame for the Memory Book wall.',
     rewards: { hearts: 3, memory: true, furniture: ['memory_frame'] },
   },
+  // ---- the Village chain (V): MNKISWAN Cozy World's village requests, written by its villagers ----
+  v1: {
+    letter: { greeting: 'Hello, you two,', art: 'wheat', signoff: 'Pippa, from the paddy field', body: [
+      'Mnki asked me how long a carrot takes. Swan asked me how to make it take longer, so there is more to look forward to.',
+      'Plant four carrot plots and harvest them. Plant a seed, give it water, and let time do the rest.',
+    ] },
+    done: 'Small seeds, patient hands. Pippa says you have both.',
+  },
+  v2: {
+    letter: { greeting: 'Mnki, Swan,', art: 'hens', signoff: 'Thronn', body: [
+      'I saved a place for you two at the farm. Our animals like a gentle hello, a little food and a good brushing.',
+      'Feed the hens three times and collect three eggs. Feathers or fur, everybody likes to be noticed.',
+    ] },
+    done: 'The hens follow Swan around now. Mnki says it is because of the tail.',
+  },
+  v3: {
+    letter: { greeting: 'Dear friends,', art: 'basket', signoff: 'Elder Willow', body: [
+      'A village grows one small kindness at a time. A welcome basket is a good first one.',
+      'Harvest six strawberries and leave three in a basket at the board. I will see that they reach every door.',
+    ] },
+    done: 'Every door in the village got a strawberry. A flower bed appeared where the basket stood.',
+    rewards: { decor: ['flower_bed'] },
+  },
+  v4: {
+    letter: { greeting: 'Good morning, neighbours,', art: 'stall', signoff: 'Milo, at the fruit stall', body: [
+      'Your stall is ready. Grown with care, shared with love: that is what the sign says, and I painted it myself.',
+      'Sell eight carrots and fill two orders. Choose a quantity before you sell, and keep what a friend asked for.',
+    ] },
+    done: 'Our first market day. Mnki counted the coins twice. Swan counted the smiles.',
+  },
+  v5: {
+    letter: { greeting: 'Hello again,', art: 'supper', signoff: 'Pippa', body: [
+      'From seed to supper is the shortest road in the village, and the best one.',
+      'Harvest six tomatoes and bake two loaves of bread. Nothing here needs you to hurry.',
+    ] },
+    done: 'Supper on the porch: tomato, warm bread and two very full farmers.',
+  },
+  v6: {
+    letter: { greeting: 'Friends,', art: 'market', signoff: 'Milo', body: [
+      'A good stall always has room for one more good thing. So should a good farm.',
+      'Buy one more building slot. Swan has already drawn three plans for it on a napkin.',
+    ] },
+    done: 'Room for good things. Swan chose the napkin with the most flowers on it.',
+  },
+  v7: {
+    letter: { greeting: 'My dears,', art: 'apple_tree', signoff: 'Elder Willow', body: [
+      'At the edge of the village stand the Three Guardians: Land, Water and Forest. Together, they kept this valley green.',
+      'Plant a pine for the Forest, two apple trees for the Land, and bring in twelve sheaves of wheat that the Water grew.',
+    ] },
+    done: 'Land. Water. Forest. Together. Mnki read the old plaque out loud, twice, in his best king voice.',
+  },
+  v8: {
+    letter: { greeting: 'Hello, hello!', art: 'flowers', signoff: 'Flora (and Fern, who says hello too)', body: [
+      'The village could use some colour beside the old tree. I grow the unexpected things.',
+      'Plant six sunflower plots and harvest them. I would love to see those colours from my garden gate.',
+    ] },
+    done: 'A whole row of sunflowers, all of them facing your porch. Flora swears she did not plan that.',
+  },
+  v9: {
+    letter: { greeting: 'Mnki, Swan,', art: 'jam', signoff: 'Thronn', body: [
+      'Leave a little room for quiet. The pond is good for that, and so is a picnic.',
+      'Make two jars of strawberry jam and a pot of vegetable soup. Bring the picnic cloth. Bring the two spoons.',
+    ] },
+    done: 'A quiet afternoon by the water. The ducks got the crusts.',
+  },
+  v10: {
+    letter: { greeting: 'Dear friends,', art: 'bench', signoff: 'Elder Willow', body: [
+      'A room becomes a home a little at a time. So does a farm. My mother taught me that, long before either of you arrived.',
+      'Clear three pieces of debris and make the farm lovely enough for its first Beauty star.',
+    ] },
+    done: 'It looks like yours now. Swan put a flower crown on the scarecrow.',
+  },
+  v11: {
+    letter: { greeting: 'To Mnki and Swan,', art: 'village', signoff: 'Elder Willow, for all of us', body: [
+      'You have planted, fed, sold, baked and shared, and the whole village noticed.',
+      'Fill six orders and bake two batches of cookies for the gathering. Then come to the board: we have lanterns to hang.',
+    ] },
+    done: 'A world worth returning to. Lanterns in every window, and a place saved for you two in the middle of it all.',
+    rewards: { acorns: 3, decor: ['lantern'] },
+  },
 };
 
 /**

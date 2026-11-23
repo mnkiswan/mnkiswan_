@@ -395,6 +395,25 @@
         "h": 200,
         "bytes": 19696
       }
+    },
+    "v": {
+      "theme": "Village (MNKISWAN Cozy World): Mnki and Swan under the lantern string, the treehouse and the meadow path",
+      "focus": [
+        0.8,
+        0.5
+      ],
+      "1200": {
+        "file": "quests/v.webp",
+        "w": 1200,
+        "h": 400,
+        "bytes": 32420
+      },
+      "600": {
+        "file": "quests/v_600.webp",
+        "w": 600,
+        "h": 200,
+        "bytes": 12922
+      }
     }
   },
   "logo": {

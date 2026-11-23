@@ -47,6 +47,7 @@ import { createTouchBuild } from './game/touch-build.js';
 import { createFishingHud } from './game/fishing-hud.js';
 import { createModeChip } from './game/mode-chip.js';
 import { createM2Moments } from './game/m2-moments.js';
+import { createSwanSays } from './game/swan-says.js';
 import { ClockSync } from '../../shared/net/clock.js';
 import { makeCid } from '../../shared/net/ids.js';
 import { MSG, ERR, PROTOCOL_VERSION, CAPS, cleanName } from '../../shared/net/protocol.js';
@@ -422,6 +423,8 @@ function wireM2() {
   controller.fishing.on('phase', (e) => { if (e.phase === 'cast') tip('fishing'); });
   controller.interior.on('change', (r) => { if (r.inside) tip('interior'); });
   window.__hh.m2 = createM2Moments({ store, ui, controller, audio });
+  // Swan's gentle lines at the milestones (MNKISWAN Cozy World)
+  window.__hh.swan = createSwanSays({ store, ui });
 }
 
 /**

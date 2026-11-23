@@ -111,6 +111,11 @@ export default {
     rosie: { role: 'пекарката на селото' },
     tom: { role: 'лодкарят' },
     lucia: { role: 'учителката' },
+    willow: { role: 'старейшината на селото' },
+    thronn: { role: 'пазачът на животните' },
+    flora: { role: 'цветарката' },
+    pippa: { role: 'фермерката на нивите' },
+    milo: { role: 'бакалинът на селото' },
   },
 
   // ---- land expansions: what a parcel shows (proofText is lane C's) ----

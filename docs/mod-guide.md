@@ -146,7 +146,7 @@ offer a new, faster variety (a new crop: its price follows its time). Nothing el
     "bg": { "title": "Пъпеши под луната", "body": "Мили мои, чух, че на фермата ви расте нещо бледо и кръгло..." } } ]
 ```
 `from`: hazel or a townsperson from `docs/catalog/npcs.json` (mabel ollie fern juniper reed pemberton pip rosie tom
-lucia); `art`: from `letterArt`; title <= 40, body <= 600
+lucia willow thronn flora pippa milo); `art`: from `letterArt`; title <= 40, body <= 600
 characters. Letters speak to both farmers ("вие" in Bulgarian) and are friendly news: never ask the farmers to deliver
 anything or promise a reward (the game cannot track it). `text/tips.json` is no longer part of the format
 (UNSUPPORTED): tips are not shown anywhere in the game.

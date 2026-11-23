@@ -154,6 +154,19 @@ export default {
 
   // fishing (game/fishing.js, game/fishing-hud.js)
   'game.fish.together': 'Two lines in the water. Nobody is in a hurry.',
+  // Swan's comments (game/swan-says.js; from MNKISWAN Cozy World)
+  'game.swan.says': 'Swan: “{line}”',
+  'game.swan.harvest': 'Our first harvest! Mnki already wants to eat it.',
+  'game.swan.fish': 'You caught one! Mnki, I think it is looking at you.',
+  'game.swan.fishRecord': 'The biggest one yet. I am telling the whole village.',
+  'game.swan.beauty': 'It looks like ours now.',
+  'game.swan.land': 'More room to wander. Race you to the fence!',
+  'game.swan.petted': 'They like you, Mnki. They like me more.',
+  'game.swan.level1': 'There’s no hurry. Let’s make ourselves at home.',
+  'game.swan.level2': 'Look how far we have come, little by little.',
+  'game.swan.level3': 'Another level. The village is getting cozier.',
+  'game.swan.village': 'Elder Willow will be so happy. A village grows one kindness at a time.',
+  'game.swan.quest': 'One more letter answered. I love it here.',
   'game.fish.fish': 'fish',
   'game.fish.partnerRecord': '{name} landed {cm:a} cm {fish}: a new record for the dock!',
   'game.fish.wait.moment': 'in a moment',

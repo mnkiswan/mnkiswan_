@@ -53,7 +53,7 @@ import { landRow, landTarget } from '../land.js';
 
 /** Story-card slots (chains A-E). Chains F/G ("This week") and H ("Together") have their own tabs (SIDE_CHAINS). */
 export const STORY_SLOTS = 3;
-const STORY_CHAINS = new Set(['A', 'B', 'C', 'D', 'E']);
+const STORY_CHAINS = new Set(['A', 'B', 'C', 'D', 'E', 'V']);
 /** Chains outside the story slots: F the Barge and G the Fair ("This week"), H the Journal ("Together"). */
 export const SIDE_CHAINS = Object.freeze({ F: 'week', G: 'week', H: 'together' });
 // `raise` is an EVENT verb (a baby of the card's species grows up after acceptance, the `grewUp` deed): an adult

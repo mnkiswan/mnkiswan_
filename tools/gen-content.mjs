@@ -334,13 +334,14 @@ const barn = M.barnUpgrades.map((b) => ({ n: b.n, m: msOfLevel(b.gate), unlock: 
 
 // ---- quests ------------------------------------------------------------------------------------------------
 const GIVER = { 'Grandma Hazel': 'hazel', "Grandma's Journal": 'journal', Mabel: 'mabel', Ollie: 'ollie',
-  'Dr. Fern': 'fern', Juniper: 'juniper', 'Captain Reed': 'reed', 'Judge Pemberton': 'pemberton' };
+  'Dr. Fern': 'fern', Juniper: 'juniper', 'Captain Reed': 'reed', 'Judge Pemberton': 'pemberton',
+  'Elder Willow': 'willow', Thronn: 'thronn', Flora: 'flora', Pippa: 'pippa', Milo: 'milo' };
 const chainSort = (a, b) => a.chain.localeCompare(b.chain) || a.level - b.level
   || Number(a.id.slice(1)) - Number(b.id.slice(1));
 const quests = M.quests.slice().sort(chainSort).map((q, i, all) => {
   const prev = all[i - 1];
   // GDD §10: M1a ships chains A-E up to L12; F (barge), G (Fair) and H (Together tab) follow with their systems
-  const m = 'ABCDE'.includes(q.chain) ? msOfLevel(q.level) : later('M1b', msOfLevel(q.level));
+  const m = 'ABCDEV'.includes(q.chain) ? msOfLevel(q.level) : later('M1b', msOfLevel(q.level));
   const flow = A.QUEST_FLOW[q.id] ?? {};      // authored graph edges and retro credit (first evening, GDD §7.4)
   return {
     id: q.id, chain: q.chain, giver: GIVER[q.giver] ?? fail(`unknown giver ${q.giver}`), m, level: q.level,

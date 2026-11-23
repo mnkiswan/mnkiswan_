@@ -357,7 +357,7 @@ test('quests L26-40 are GDD §5.3 (chains B-H), each with a full letter, and eve
     h7: [39, 'together 1 bench', 320_000, 40_000],
   };
   assert.deepEqual(m2('quests').map((q) => q.id).sort(), Object.keys(Q).sort());
-  assert.equal(CONTENT.quests.size, 64, 'GDD §5.3: 64 quests in 8 chains');
+  assert.equal(CONTENT.quests.size, 75, 'GDD §5.3: 64 quests in 8 chains, and the 11 of the Village chain (V)');
   for (const [id, [L, tasks, coins, xp]] of Object.entries(Q)) {
     const q = questOf(id);
     assert.deepEqual([q.level, q.tasks.map((t) => `${t.verb} ${t.qty} ${t.ref}`).join('; '), q.coins, q.xp],

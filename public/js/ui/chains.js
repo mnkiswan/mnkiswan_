@@ -5,7 +5,7 @@ import { assetUrl } from '../net/asset-base.js';
 
 export const CHAIN_FOCUS = Object.freeze({
   a: [0.40, 0.62], b: [0.50, 0.55], c: [0.38, 0.55], d: [0.55, 0.62], e: [0.48, 0.72],
-  f: [0.55, 0.55], g: [0.25, 0.68], h: [0.70, 0.45],
+  f: [0.55, 0.55], g: [0.25, 0.68], h: [0.70, 0.45], v: [0.80, 0.50],
 });
 
 /** The CSS custom properties of a chain painting (`--art`, `--fx`, `--fy`), or null for a chain without one. */

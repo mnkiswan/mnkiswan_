@@ -36,7 +36,7 @@ test('every family of the whole game exists as data, every def carries a milesto
   for (const [fam, n] of Object.entries(sizes)) assert.equal(CONTENT[fam].size, n, fam);
   assert.equal(CONTENT.levels.length, 40);
   assert.equal(CONTENT.barn.length, 10);
-  assert.equal(CONTENT.quests.size, 64);
+  assert.equal(CONTENT.quests.size, 75); // 64 of GDD §5.3 and the Village chain (V)
   assert.equal(CONTENT.ribbons.size, 70);
   for (const fam of contentKinds().filter((k) => k !== 'placeables')) {
     for (const d of CONTENT[fam].values()) assert.ok(MILESTONES.includes(d.m), `${fam}.${d.id}.m`);
